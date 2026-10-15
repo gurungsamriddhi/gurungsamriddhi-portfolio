@@ -1,0 +1,15 @@
+# System & IDE files
+.DS_Store
+Thumbs.db
+*.log
+.vscode/
+.idea/
+
+# Vercel & Node
+.vercel
+node_modules/
+
+# Temporary storage
+.tempmediaStorage/
+.system_generated/
+.gemini/

@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="cyber">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Sushma H S &bull; Backend Developer</title>
+  <meta name="description" content="Sushma H S — Backend Developer specializing in Python, FastAPI, and PostgreSQL.">
+  <meta name="author" content="Sushma H S">
+
+  <!-- Single Font Family: Inter + JetBrains Mono for code -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Minimal Background -->
+  <canvas id="canvas-ambient" aria-hidden="true"></canvas>
+  <div class="bg-grid-overlay" aria-hidden="true"></div>
+
+  <!-- Header -->
+  <header class="hud-navbar" role="banner">
+    <div class="hud-nav-container">
+      <nav class="hud-nav-inner" aria-label="Main Navigation">
+        <a href="#hero" class="hud-brand">
+          <div class="hud-brand-symbol">S</div>
+          <span>Sushma H S</span>
+        </a>
+
+        <ul class="nav-links">
+          <li><a href="#projects" class="nav-link">Projects</a></li>
+          <li><a href="#architecture" class="nav-link">Architecture</a></li>
+          <li><a href="#skills" class="nav-link">Skills</a></li>
+          <li><a href="#certs" class="nav-link">Certifications</a></li>
+          <li><a href="#experience" class="nav-link">Experience</a></li>
+          <li><a href="#contact" class="nav-link">Contact</a></li>
+        </ul>
+      </nav>
+
+      <div class="hud-controls">
+        <button class="hud-btn" id="btn-cmd-palette" title="Command Palette">
+          <span>Search</span>
+          <span style="font-family: var(--font-mono); font-size: 0.68rem; opacity: 0.6;">Ctrl+K</span>
+        </button>
+
+        <button class="hud-btn" id="btn-theme-toggle" title="Toggle Theme">
+          <span id="theme-label">Dark</span>
+        </button>
+
+        <button class="hud-btn active" id="btn-sound-toggle" title="Toggle Sound">
+          <span id="sound-label">Audio On</span>
+        </button>
+
+        <button class="hud-btn js-open-terminal" id="btn-terminal-open" title="Open Terminal">
+          <span>Terminal</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <main id="main-content">
+    <section class="hero-section" id="hero">
+      <div class="container">
+        <div class="hero-grid">
+          
+          <div>
+            <div class="hero-status-pill">
+              <span class="pulse-dot"></span>
+              <span>BENGALURU, INDIA &bull; SMARTBORN &bull; <span id="live-clock">1:50 PM</span></span>
+            </div>
+
+            <h1 class="hero-title">
+              <span class="hero-title-prefix">Architecting systems that</span>
+              <span class="hero-dynamic-line">
+                <span class="hero-dynamic-text" id="hero-typewriter">scale without friction.</span>
+                <span class="hero-cursor" aria-hidden="true">|</span>
+              </span>
+            </h1>
+
+            <div class="hero-tech-tags">
+              <span class="hero-tech-pill">Python 3</span>
+              <span class="hero-tech-pill">FastAPI</span>
+              <span class="hero-tech-pill">PostgreSQL</span>
+              <span class="hero-tech-pill">Distributed Queues</span>
+            </div>
+
+            <p class="hero-subheadline">
+              Creator of <b>TraceMind</b>, <b>CVantage-AI</b>, <b>BulkApply</b>, and <b>Legacy</b>. Building sub-second REST APIs, background workers, and optimized database schemas.
+            </p>
+
+            <div class="hero-actions">
+              <a href="#projects" class="btn-primary">View Projects</a>
+              <a href="#contact" class="btn-secondary">Contact</a>
+              <button class="btn-secondary js-open-terminal" style="font-family: var(--font-mono); font-size: 0.78rem;">
+                terminal &gt;_
+              </button>
+            </div>
+
+            <div class="hero-metrics">
+              <div>
+                <div class="metric-val">40<span class="metric-unit">%</span></div>
+                <div class="metric-lbl">API Speedup</div>
+              </div>
+              <div>
+                <div class="metric-val">04</div>
+                <div class="metric-lbl">Systems Built</div>
+              </div>
+              <div>
+                <div class="metric-val">8.1<span class="metric-unit">/10</span></div>
+                <div class="metric-lbl">B.E. CGPA</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Profile Card -->
+          <div class="hero-visual-card">
+            <div class="holo-card-inner">
+              <div class="holo-avatar-wrap">
+                <img src="assets/images/sushma.jpg" alt="Sushma H S" class="holo-avatar-img">
+              </div>
+
+              <div>
+                <div class="holo-person-name">Sushma H S</div>
+                <div class="holo-person-role">Backend Developer</div>
+              </div>
+
+              <div class="holo-person-details">
+                Smartborn &bull; Bengaluru<br>
+                Python &bull; FastAPI &bull; PostgreSQL
+              </div>
+
+              <a href="https://github.com/sushmashivamadegowda" target="_blank" rel="noopener noreferrer" style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--accent-cyan); text-decoration: none;">
+                github.com/sushmashivamadegowda &rarr;
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="section-padding" id="projects">
+      <div class="container">
+        
+        <div class="section-header">
+          <div class="section-kicker">Projects</div>
+          <h2 class="section-heading">Featured Systems</h2>
+          <p class="section-desc">Production platforms and tools built with Python, FastAPI, and PostgreSQL.</p>
+        </div>
+
+        <div class="projects-grid">
+          
+          <!-- 1. TraceMind -->
+          <article class="project-card" data-project="tracemind">
+            <div class="project-thumbnail-wrap">
+              <img src="assets/images/project-tracemind.jpg" alt="TraceMind" class="project-thumbnail" loading="lazy">
+            </div>
+            <div class="project-content">
+              <div class="project-title-row">
+                <h3 class="project-title">TraceMind</h3>
+                <span style="font-size: 0.75rem; color: var(--accent-cyan); font-family: var(--font-mono);">Observability</span>
+              </div>
+              <p class="project-summary">Distributed microservice tracing and AI agent tool-call execution tracking.</p>
+              <div class="project-tech-stack">
+                <span class="tech-pill">FastAPI</span>
+                <span class="tech-pill">OpenTelemetry</span>
+                <span class="tech-pill">PostgreSQL</span>
+                <span class="tech-pill">Python</span>
+              </div>
+              <div class="project-footer-action">
+                <button class="btn-inspect" data-project="tracemind">Details &rarr;</button>
+                <a href="https://github.com/sushmashivamadegowda" target="_blank" rel="noopener noreferrer" class="project-gh-link" onclick="event.stopPropagation()">GitHub &rarr;</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- 2. CVantage-AI -->
+          <article class="project-card" data-project="cvantage">
+            <div class="project-thumbnail-wrap">
+              <img src="assets/images/project-cvantage.jpg" alt="CVantage-AI" class="project-thumbnail" loading="lazy">
+            </div>
+            <div class="project-content">
+              <div class="project-title-row">
+                <h3 class="project-title">CVantage-AI</h3>
+                <span style="font-size: 0.75rem; color: var(--accent-cyan); font-family: var(--font-mono);">AI / NLP</span>
+              </div>
+              <p class="project-summary">AI-native resume parsing and semantic vector candidate matching.</p>
+              <div class="project-tech-stack">
+                <span class="tech-pill">Python</span>
+                <span class="tech-pill">FastAPI</span>
+                <span class="tech-pill">Embeddings</span>
+                <span class="tech-pill">Pydantic</span>
+              </div>
+              <div class="project-footer-action">
+                <button class="btn-inspect" data-project="cvantage">Details &rarr;</button>
+                <a href="https://github.com/sushmashivamadegowda" target="_blank" rel="noopener noreferrer" class="project-gh-link" onclick="event.stopPropagation()">GitHub &rarr;</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- 3. BulkApply -->
+          <article class="project-card" data-project="bulkapply">
+            <div class="project-thumbnail-wrap">
+              <img src="assets/images/project-bulkapply.jpg" alt="BulkApply" class="project-thumbnail" loading="lazy">
+            </div>
+            <div class="project-content">
+              <div class="project-title-row">
+                <h3 class="project-title">BulkApply</h3>
+                <span style="font-size: 0.75rem; color: var(--accent-cyan); font-family: var(--font-mono);">Queues</span>
+              </div>
+              <p class="project-summary">Automated job application queue with headless browser dispatch.</p>
+              <div class="project-tech-stack">
+                <span class="tech-pill">Python</span>
+                <span class="tech-pill">Playwright</span>
+                <span class="tech-pill">Asyncio</span>
+                <span class="tech-pill">FastAPI</span>
+              </div>
+              <div class="project-footer-action">
+                <button class="btn-inspect" data-project="bulkapply">Details &rarr;</button>
+                <a href="https://github.com/sushmashivamadegowda" target="_blank" rel="noopener noreferrer" class="project-gh-link" onclick="event.stopPropagation()">GitHub &rarr;</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- 4. Legacy -->
+          <article class="project-card" data-project="legacy">
+            <div class="project-thumbnail-wrap">
+              <img src="assets/images/project-legacy.jpg" alt="Legacy" class="project-thumbnail" loading="lazy">
+            </div>
+            <div class="project-content">
+              <div class="project-title-row">
+                <h3 class="project-title">Legacy</h3>
+                <span style="font-size: 0.75rem; color: var(--accent-cyan); font-family: var(--font-mono);">Migration</span>
+              </div>
+              <p class="project-summary">Monolith-to-microservices migration and database schema refactoring.</p>
+              <div class="project-tech-stack">
+                <span class="tech-pill">Python</span>
+                <span class="tech-pill">Django</span>
+                <span class="tech-pill">SQLAlchemy</span>
+                <span class="tech-pill">PostgreSQL</span>
+              </div>
+              <div class="project-footer-action">
+                <button class="btn-inspect" data-project="legacy">Details &rarr;</button>
+                <a href="https://github.com/sushmashivamadegowda" target="_blank" rel="noopener noreferrer" class="project-gh-link" onclick="event.stopPropagation()">GitHub &rarr;</a>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Architecture Sandbox -->
+    <section class="section-padding" id="architecture">
+      <div class="container">
+        
+        <div class="section-header">
+          <div class="section-kicker">Architecture</div>
+          <h2 class="section-heading">Code Samples</h2>
+          <p class="section-desc">Sample implementations from TraceMind, CVantage-AI, and BulkApply.</p>
+        </div>
+
+        <div class="sandbox-card">
+          <div class="sandbox-nav">
+            <div class="sandbox-tabs">
+              <button class="sandbox-tab active" data-snippet="tracemind" id="tab-tracemind">tracemind.py</button>
+              <button class="sandbox-tab" data-snippet="cvantage" id="tab-cvantage">cvantage.py</button>
+              <button class="sandbox-tab" data-snippet="bulkapply" id="tab-bulkapply">bulkapply.py</button>
+            </div>
+            <button class="btn-sandbox-copy" id="btn-copy-sandbox">Copy</button>
+          </div>
+
+          <div class="sandbox-body">
+            <div class="sandbox-editor">
+              <pre><code id="sandbox-code"># TraceMind: Distributed Tracing & AI Agent Observability
+from fastapi import Request
+import time
+import uuid
+
+class TraceMindCollector:
+    def __init__(self, service_name: str):
+        self.service_name = service_name
+        self.spans = {}
+
+    async def trace_execution(self, trace_id: str, span_name: str):
+        span_id = str(uuid.uuid4())[:8]
+        start_time = time.perf_counter()
+        try:
+            yield span_id
+        finally:
+            elapsed_ms = (time.perf_counter() - start_time) * 1000
+            self.spans[span_id] = {
+                "trace_id": trace_id,
+                "service": self.service_name,
+                "span": span_name,
+                "latency_ms": round(elapsed_ms, 2)
+            }
+
+tracer = TraceMindCollector("order-service")</code></pre>
+            </div>
+
+            <div class="sandbox-preview">
+              <div>
+                <div style="font-size: 0.75rem; font-family: var(--font-mono); color: var(--accent-cyan);">TELEMETRY</div>
+                <div class="live-benchmark-box">
+                  <div>
+                    <div class="benchmark-row">
+                      <span>Latency (P85)</span>
+                      <span id="val-fps" style="color: var(--accent-cyan); font-weight: 600;">214 ms P85</span>
+                    </div>
+                    <div class="benchmark-meter"><div class="benchmark-fill" id="meter-fps" style="width: 90%;"></div></div>
+                  </div>
+                  <div>
+                    <div class="benchmark-row">
+                      <span>Volume</span>
+                      <span id="val-mem" style="color: var(--accent-emerald); font-weight: 600;">1,840 Traces/s</span>
+                    </div>
+                    <div class="benchmark-meter"><div class="benchmark-fill" id="meter-mem" style="width: 85%;"></div></div>
+                  </div>
+                  <div>
+                    <div class="benchmark-row">
+                      <span>Uptime</span>
+                      <span id="val-lat" style="color: var(--text-bright); font-weight: 600;">99.8%</span>
+                    </div>
+                    <div class="benchmark-meter"><div class="benchmark-fill" id="meter-lat" style="width: 98%;"></div></div>
+                  </div>
+                </div>
+              </div>
+
+              <div style="font-size: 0.72rem; color: var(--text-muted); font-family: var(--font-mono);">
+                OpenTelemetry Protocol &bull; Async
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Skills Section: Compact Pills -->
+    <section class="section-padding" id="skills">
+      <div class="container">
+        
+        <div class="section-header">
+          <div class="section-kicker">Stack</div>
+          <h2 class="section-heading">Skills</h2>
+          <p class="section-desc">Technologies and tools used across production systems.</p>
+        </div>
+
+        <div class="skills-compact-grid">
+          <div class="skill-pill-item"><span class="skill-dot"></span><span>Python 3</span></div>
+          <div class="skill-pill-item"><span class="skill-dot"></span><span>FastAPI</span></div>
+          <div class="skill-pill-item"><span class="skill-dot"></span><span>PostgreSQL</span></div>
+          <div class="skill-pill-item"><span class="skill-dot"></span><span>SQLAlchemy</span></div>
+          <div class="skill-pill-item"><span class="skill-dot"></span><span>Django</span></div>
+          <div class="skill-pill-item"><span class="skill-dot"></span><span>Pydantic v2</span></div>
+          <div class="skill-pill-item"><span class="skill-dot"></span><span>Docker</span></div>
+          <div class="skill-pill-item"><span class="skill-dot"></span><span>REST APIs</span></div>
+          <div class="skill-pill-item"><span class="skill-dot"></span><span>SQL Query Tuning</span></div>
+          <div class="skill-pill-item"><span class="skill-dot"></span><span>Git & GitHub</span></div>
+          <div class="skill-pill-item"><span class="skill-dot"></span><span>Postman</span></div>
+          <div class="skill-pill-item"><span class="skill-dot"></span><span>MySQL</span></div>
+          <div class="skill-pill-item"><span class="skill-dot"></span><span>OpenTelemetry</span></div>
+          <div class="skill-pill-item"><span class="skill-dot"></span><span>Playwright</span></div>
+          <div class="skill-pill-item"><span class="skill-dot"></span><span>React (Basics)</span></div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Certifications: Anthropic & Claude Suite -->
+    <section class="section-padding" id="certs">
+      <div class="container">
+        
+        <div class="section-header">
+          <div class="section-kicker">Credentials</div>
+          <h2 class="section-heading">Certifications</h2>
+          <p class="section-desc">Anthropic &amp; Claude verified AI systems credentials.</p>
+        </div>
+
+        <div class="certs-compact-list">
+          <!-- 1. MCP Advanced Topics -->
+          <div class="cert-compact-card">
+            <div class="cert-top-row">
+              <span class="cert-issuer-badge">Anthropic</span>
+              <span class="cert-date-badge">Sep 2026</span>
+            </div>
+            <div class="cert-body">
+              <h3 class="cert-title-sm">Model Context Protocol: Advanced Topics</h3>
+              <div class="cert-meta-tag">MCP Architecture &bull; Distributed Tools</div>
+            </div>
+            <div class="cert-footer-row">
+              <a href="https://verify.skilljar.com/c/baduj3uyjvqh" class="cert-view-link" data-cert-title="Model Context Protocol: Advanced Topics" target="_blank" rel="noopener noreferrer">
+                <span>View certificate</span>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+              </a>
+              <span class="cert-status-dot" title="Verified Complete"></span>
+            </div>
+          </div>
+
+          <!-- 2. Intro to MCP -->
+          <div class="cert-compact-card">
+            <div class="cert-top-row">
+              <span class="cert-issuer-badge">Anthropic</span>
+              <span class="cert-date-badge">Sep 2026</span>
+            </div>
+            <div class="cert-body">
+              <h3 class="cert-title-sm">Introduction to Model Context Protocol</h3>
+              <div class="cert-meta-tag">MCP Foundations &bull; Tool Protocol</div>
+            </div>
+            <div class="cert-footer-row">
+              <a href="https://verify.skilljar.com/c/t8ymqrnvqk4q" class="cert-view-link" data-cert-title="Introduction to Model Context Protocol" target="_blank" rel="noopener noreferrer">
+                <span>View certificate</span>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+              </a>
+              <span class="cert-status-dot" title="Verified Complete"></span>
+            </div>
+          </div>
+
+          <!-- 3. Intro to Subagents -->
+          <div class="cert-compact-card">
+            <div class="cert-top-row">
+              <span class="cert-issuer-badge">Anthropic</span>
+              <span class="cert-date-badge">Sep 2026</span>
+            </div>
+            <div class="cert-body">
+              <h3 class="cert-title-sm">Introduction to subagents</h3>
+              <div class="cert-meta-tag">Multi-Agent Systems &bull; Delegation</div>
+            </div>
+            <div class="cert-footer-row">
+              <a href="https://verify.skilljar.com/c/kozwjqcb6kjb" class="cert-view-link" data-cert-title="Introduction to subagents" target="_blank" rel="noopener noreferrer">
+                <span>View certificate</span>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+              </a>
+              <span class="cert-status-dot" title="Verified Complete"></span>
+            </div>
+          </div>
+
+          <!-- 4. Intro to Agent Skills -->
+          <div class="cert-compact-card">
+            <div class="cert-top-row">
+              <span class="cert-issuer-badge">Anthropic</span>
+              <span class="cert-date-badge">Sep 2026</span>
+            </div>
+            <div class="cert-body">
+              <h3 class="cert-title-sm">Introduction to agent skills</h3>
+              <div class="cert-meta-tag">Autonomous Tools &bull; Capability Design</div>
+            </div>
+            <div class="cert-footer-row">
+              <a href="https://verify.skilljar.com/c/29kt8o9b7ui9" class="cert-view-link" data-cert-title="Introduction to agent skills" target="_blank" rel="noopener noreferrer">
+                <span>View certificate</span>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+              </a>
+              <span class="cert-status-dot" title="Verified Complete"></span>
+            </div>
+          </div>
+
+          <!-- 5. Claude Code in Action -->
+          <div class="cert-compact-card">
+            <div class="cert-top-row">
+              <span class="cert-issuer-badge">Anthropic</span>
+              <span class="cert-date-badge">Sep 2026</span>
+            </div>
+            <div class="cert-body">
+              <h3 class="cert-title-sm">Claude Code in Action</h3>
+              <div class="cert-meta-tag">Terminal Workflows &bull; Production CLI</div>
+            </div>
+            <div class="cert-footer-row">
+              <a href="https://verify.skilljar.com/c/cvrazcsieq4p" class="cert-view-link" data-cert-title="Claude Code in Action" target="_blank" rel="noopener noreferrer">
+                <span>View certificate</span>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+              </a>
+              <span class="cert-status-dot" title="Verified Complete"></span>
+            </div>
+          </div>
+
+          <!-- 6. Claude Code 101 -->
+          <div class="cert-compact-card">
+            <div class="cert-top-row">
+              <span class="cert-issuer-badge">Anthropic</span>
+              <span class="cert-date-badge">Sep 2026</span>
+            </div>
+            <div class="cert-body">
+              <h3 class="cert-title-sm">Claude Code 101</h3>
+              <div class="cert-meta-tag">Agentic Coding &bull; Pair Programming</div>
+            </div>
+            <div class="cert-footer-row">
+              <a href="https://verify.skilljar.com/c/9qfp3q85p48y" class="cert-view-link" data-cert-title="Claude Code 101" target="_blank" rel="noopener noreferrer">
+                <span>View certificate</span>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+              </a>
+              <span class="cert-status-dot" title="Verified Complete"></span>
+            </div>
+          </div>
+
+          <!-- 7. Building with the Claude API -->
+          <div class="cert-compact-card">
+            <div class="cert-top-row">
+              <span class="cert-issuer-badge">Anthropic</span>
+              <span class="cert-date-badge">Sep 2026</span>
+            </div>
+            <div class="cert-body">
+              <h3 class="cert-title-sm">Building with the Claude API</h3>
+              <div class="cert-meta-tag">SDK Integration &bull; Function Calling</div>
+            </div>
+            <div class="cert-footer-row">
+              <a href="https://verify.skilljar.com/c/fuxumghauqot" class="cert-view-link" data-cert-title="Building with the Claude API" target="_blank" rel="noopener noreferrer">
+                <span>View certificate</span>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+              </a>
+              <span class="cert-status-dot" title="Verified Complete"></span>
+            </div>
+          </div>
+
+          <!-- 8. Claude Platform 101 -->
+          <div class="cert-compact-card">
+            <div class="cert-top-row">
+              <span class="cert-issuer-badge">Anthropic</span>
+              <span class="cert-date-badge">Aug 2026</span>
+            </div>
+            <div class="cert-body">
+              <h3 class="cert-title-sm">Claude Platform 101</h3>
+              <div class="cert-meta-tag">Model Architecture &bull; API Lifecycle</div>
+            </div>
+            <div class="cert-footer-row">
+              <a href="https://verify.skilljar.com/c/94yk9bt8kce9" class="cert-view-link" data-cert-title="Claude Platform 101" target="_blank" rel="noopener noreferrer">
+                <span>View certificate</span>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+              </a>
+              <span class="cert-status-dot" title="Verified Complete"></span>
+            </div>
+          </div>
+
+          <!-- 9. Claude 101 -->
+          <div class="cert-compact-card">
+            <div class="cert-top-row">
+              <span class="cert-issuer-badge">Anthropic</span>
+              <span class="cert-date-badge">Aug 2026</span>
+            </div>
+            <div class="cert-body">
+              <h3 class="cert-title-sm">Claude 101</h3>
+              <div class="cert-meta-tag">Foundational LLM Concepts</div>
+            </div>
+            <div class="cert-footer-row">
+              <a href="https://verify.skilljar.com/c/52q673gqp9hj" class="cert-view-link" data-cert-title="Claude 101" target="_blank" rel="noopener noreferrer">
+                <span>View certificate</span>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+              </a>
+              <span class="cert-status-dot" title="Verified Complete"></span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Experience: Compact Timeline -->
+    <section class="section-padding" id="experience">
+      <div class="container">
+        
+        <div class="section-header">
+          <div class="section-kicker">Career</div>
+          <h2 class="section-heading">Experience</h2>
+          <p class="section-desc">Work history and education.</p>
+        </div>
+
+        <div class="git-timeline-container">
+          <div class="timeline-item">
+            <div class="timeline-role">Software Developer</div>
+            <div class="timeline-company">Smartborn &bull; Jun 2026 – Present &bull; Bengaluru</div>
+            <p class="timeline-desc">Production FastAPI and PostgreSQL backend services; 40% API response-time improvement through SQL optimizations.</p>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-role">Software Developer Intern</div>
+            <div class="timeline-company">Smartborn &bull; Dec 2025 – Jun 2026 &bull; Bengaluru</div>
+            <p class="timeline-desc">Built REST APIs in FastAPI and Django, delivered 5+ production features, resolved 30+ defects; promoted to full-time.</p>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-role">Tech Intern</div>
+            <div class="timeline-company">Varcons Technologies &bull; Jan 2025 – Apr 2025</div>
+            <p class="timeline-desc">Refactored Python/Django modules (35% maintainability gain); optimized SQL queries and reduced server load.</p>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-role">B.E. in Computer Science & Engineering</div>
+            <div class="timeline-company">Dr. SMCE &bull; Graduated 2025 &bull; CGPA: 8.1 / 10</div>
+            <p class="timeline-desc">Core coursework in Distributed Systems, Relational Databases, and Software Architecture.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section-padding" id="contact">
+      <div class="container">
+        
+        <div class="section-header">
+          <div class="section-kicker">Contact</div>
+          <h2 class="section-heading">Get In Touch</h2>
+          <p class="section-desc">Available for backend roles and collaborations.</p>
+        </div>
+
+        <div class="contact-grid">
+          
+          <div class="contact-channels">
+            <div class="contact-channel-row">
+              <span style="color: var(--text-muted);">Email</span>
+              <a href="mailto:hssushma2004@gmail.com">hssushma2004@gmail.com</a>
+            </div>
+
+            <div class="contact-channel-row">
+              <span style="color: var(--text-muted);">Phone</span>
+              <a href="tel:+918904261543">+91-8904261543</a>
+            </div>
+
+            <div class="contact-channel-row">
+              <span style="color: var(--text-muted);">GitHub</span>
+              <a href="https://github.com/sushmashivamadegowda" target="_blank" rel="noopener noreferrer">@sushmashivamadegowda</a>
+            </div>
+
+            <div class="contact-channel-row">
+              <span style="color: var(--text-muted);">LinkedIn</span>
+              <a href="https://linkedin.com/in/sushmahs" target="_blank" rel="noopener noreferrer">linkedin.com/in/sushmahs</a>
+            </div>
+          </div>
+
+          <!-- Minimal Message Form -->
+          <form class="contact-form" id="transmission-form">
+            <input type="text" id="input-name" class="form-input-sm" placeholder="Your Name" required>
+            <input type="email" id="input-email" class="form-input-sm" placeholder="Your Email" required>
+            <textarea id="input-message" class="form-textarea-sm" placeholder="Message..." required></textarea>
+            <button type="submit" class="btn-primary" id="btn-transmit" style="justify-content: center;">
+              Send Message
+            </button>
+            <div id="transmission-status" class="transmission-status"></div>
+          </form>
+
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container footer-inner">
+      <div>Sushma H S &bull; Bengaluru, India</div>
+      <div>
+        <a href="https://github.com/sushmashivamadegowda" target="_blank" rel="noopener noreferrer">GitHub</a> &bull;
+        <a href="https://linkedin.com/in/sushmahs" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Command Palette Modal -->
+  <div class="cmd-palette-backdrop" id="cmd-palette-backdrop">
+    <div class="cmd-palette-window">
+      <div class="cmd-palette-input-wrap">
+        <input type="text" id="cmd-palette-input" class="cmd-palette-input" placeholder="Type a command or jump to..." autocomplete="off">
+        <span style="font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-muted);">ESC</span>
+      </div>
+      <ul class="cmd-palette-list" id="cmd-palette-list">
+        <li class="cmd-item" data-action="nav-projects"><span>Projects</span><span style="color: var(--text-muted);">TraceMind, CVantage, BulkApply, Legacy</span></li>
+        <li class="cmd-item" data-action="nav-sandbox"><span>Architecture</span><span style="color: var(--text-muted);">Code samples</span></li>
+        <li class="cmd-item" data-action="nav-skills"><span>Skills</span><span style="color: var(--text-muted);">Tech stack</span></li>
+        <li class="cmd-item" data-action="nav-certs"><span>Certifications</span><span style="color: var(--text-muted);">Credentials</span></li>
+        <li class="cmd-item" data-action="nav-experience"><span>Experience</span><span style="color: var(--text-muted);">Work history</span></li>
+        <li class="cmd-item" data-action="nav-contact"><span>Contact</span><span style="color: var(--text-muted);">Email & phone</span></li>
+        <li class="cmd-item" data-action="toggle-theme"><span>Toggle Theme</span><span style="color: var(--text-muted);">Dark / Light</span></li>
+        <li class="cmd-item" data-action="toggle-sound"><span>Toggle Audio</span><span style="color: var(--text-muted);">Sound FX</span></li>
+        <li class="cmd-item" data-action="open-terminal"><span>Terminal</span><span style="color: var(--text-muted);">CLI Drawer</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- CLI Drawer -->
+  <aside class="terminal-drawer" id="terminal-drawer">
+    <div class="terminal-drawer-header">
+      <span>Terminal &bull; Sushma H S</span>
+      <button class="terminal-close-btn" id="terminal-close-btn">&times;</button>
+    </div>
+    <div class="terminal-drawer-body" id="terminal-drawer-body">
+      <div id="terminal-output">
+        <div>Type <span style="color: var(--accent-cyan);">projects</span>, <span style="color: var(--accent-cyan);">skills</span>, or <span style="color: var(--accent-cyan);">help</span>.</div>
+      </div>
+    </div>
+    <div class="terminal-prompt-row">
+      <span style="color: var(--accent-cyan); font-family: var(--font-mono); font-size: 0.78rem;">sushma:~$</span>
+      <input type="text" id="terminal-cmd-input" class="terminal-cmd-input" placeholder="whoami, projects, contact..." autocomplete="off">
+    </div>
+  </aside>
+
+  <!-- Project Inspect Modal -->
+  <div class="inspect-modal-backdrop" id="inspect-modal">
+    <div class="inspect-modal-window">
+      <div class="inspect-modal-header">
+        <div>
+          <h3 id="modal-title" style="font-size: 1.15rem; font-weight: 600; color: var(--text-bright);">Project</h3>
+          <div id="modal-subtitle" style="font-size: 0.78rem; color: var(--accent-cyan); font-family: var(--font-mono);">Overview</div>
+        </div>
+        <button id="inspect-modal-close" style="background: transparent; border: none; font-size: 1.3rem; color: var(--text-muted); cursor: pointer;">&times;</button>
+      </div>
+
+      <div class="inspect-modal-body">
+        <div style="margin-bottom: 1rem; border-radius: var(--radius-sm); overflow: hidden; max-height: 240px;">
+          <img id="modal-img" src="" alt="Project" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+        </div>
+
+        <div style="margin-bottom: 1rem;">
+          <p id="modal-overview" style="color: var(--text-secondary); line-height: 1.55; font-size: 0.88rem;"></p>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+          <div style="background: rgba(0, 0, 0, 0.25); padding: 0.75rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+            <div style="font-size: 0.72rem; color: #f43f5e; font-family: var(--font-mono); margin-bottom: 0.25rem;">PROBLEM</div>
+            <p id="modal-problem" style="color: var(--text-secondary); font-size: 0.8rem; line-height: 1.45;"></p>
+          </div>
+
+          <div style="background: rgba(0, 0, 0, 0.25); padding: 0.75rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+            <div style="font-size: 0.72rem; color: var(--accent-emerald); font-family: var(--font-mono); margin-bottom: 0.25rem;">SOLUTION</div>
+            <p id="modal-solution" style="color: var(--text-secondary); font-size: 0.8rem; line-height: 1.45;"></p>
+          </div>
+        </div>
+
+        <div>
+          <div style="font-size: 0.72rem; color: var(--accent-cyan); font-family: var(--font-mono); margin-bottom: 0.35rem;">STACK</div>
+          <div id="modal-stack" style="display: flex; flex-wrap: wrap; gap: 0.35rem;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/sound.js"></script>
+  <script src="js/canvas.js"></script>
+  <script src="js/terminal.js"></script>
+  <script src="js/main.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>ResQNet case study · Samriddhi Gurung</title>
+  <meta name="description" content="How I built and maintain the backend of ResQNet, a live animal rescue, adoption and donation platform: Laravel 11 REST API, Sanctum and role-based access, Reverb WebSockets, Khalti payments, FCM, CircleCI and Heroku.">
+  <meta name="author" content="Samriddhi Gurung">
+  <link rel="canonical" href="https://gurungsamriddhi.com.np/resqnet">
+  <meta name="theme-color" content="#0A0C11">
+
+  <!-- Open Graph / Twitter -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Samriddhi Gurung">
+  <meta property="og:title" content="ResQNet case study · Samriddhi Gurung">
+  <meta property="og:description" content="Backend case study: a Laravel 11 API and web dashboards for a live animal rescue, adoption and donation platform in Nepal.">
+  <meta property="og:url" content="https://gurungsamriddhi.com.np/resqnet">
+  <meta property="og:image" content="https://gurungsamriddhi.com.np/assets/images/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Samriddhi Gurung, Backend Developer, PHP and Laravel">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="ResQNet case study · Samriddhi Gurung">
+  <meta name="twitter:description" content="Backend case study: a Laravel 11 API and web dashboards for a live animal rescue, adoption and donation platform in Nepal.">
+  <meta name="twitter:image" content="https://gurungsamriddhi.com.np/assets/images/og-image.png">
+
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+
+  <!-- Apply saved / OS theme before first paint -->
+  <script>
+    (function () {
+      var t;
+      try { t = localStorage.getItem('sg-theme'); } catch (e) {}
+      if (t !== 'light' && t !== 'dark') {
+        t = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      }
+      document.documentElement.setAttribute('data-theme', t);
+    })();
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Icon sprite -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <symbol id="i-arrow-up-right" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M7 17 17 7M8 7h9v9"/></symbol>
+    <symbol id="i-arrow-left" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M19 12H5M11 18l-6-6 6-6"/></symbol>
+    <symbol id="i-sun" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></g></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><path fill="currentColor" d="M7 4.5v15a1 1 0 0 0 1.52.85l12-7.5a1 1 0 0 0 0-1.7l-12-7.5A1 1 0 0 0 7 4.5Z"/></symbol>
+  </svg>
+
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand" aria-label="Samriddhi Gurung, home">
+        <span class="brand-mark" aria-hidden="true">SG</span>
+        <span>Samriddhi Gurung</span>
+      </a>
+
+      <nav class="site-nav" id="site-nav" aria-label="Main">
+        <ul class="nav-list">
+          <li><a href="index.html#about">About</a></li>
+          <li><a href="index.html#skills">Skills</a></li>
+          <li><a href="index.html#projects" aria-current="page">Projects</a></li>
+          <li><a href="index.html#experience">Experience</a></li>
+          <li><a href="index.html#education">Education</a></li>
+          <li><a href="index.html#contact">Contact</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <button class="icon-btn theme-toggle" id="theme-toggle" type="button" aria-label="Switch theme">
+          <svg class="icon-sun" aria-hidden="true"><use href="#i-sun"/></svg>
+          <svg class="icon-moon" aria-hidden="true"><use href="#i-moon"/></svg>
+        </button>
+        <button class="icon-btn menu-toggle" id="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="site-nav">
+          <svg aria-hidden="true"><use href="#i-menu"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- INTRO -->
+    <section class="cs-hero">
+      <div class="container">
+        <a href="index.html#projects" class="back-link">
+          <svg aria-hidden="true"><use href="#i-arrow-left"/></svg>
+          All projects
+        </a>
+
+        <p class="section-label">Case study · BCA final-year project</p>
+        <h1 class="cs-title">ResQNet</h1>
+        <p class="cs-lead">
+          An animal rescue, adoption, donation and health-management platform for Nepal. One Laravel backend serves a
+          React Native (Expo) mobile app for the public and web dashboards for rescue organisations and administrators.
+          It is live in production, and I lead and maintain its backend.
+        </p>
+
+        <div class="btn-row">
+          <a href="https://resqnet.tech" class="btn btn-primary" target="_blank" rel="noopener noreferrer">
+            Visit resqnet.tech
+            <svg aria-hidden="true"><use href="#i-arrow-up-right"/></svg>
+            <span class="visually-hidden">(opens in a new tab)</span>
+          </a>
+          <a href="https://github.com/gurungsamriddhi/ResQNet-backend" class="btn btn-secondary" target="_blank" rel="noopener noreferrer">
+            Backend source on GitHub
+            <svg aria-hidden="true"><use href="#i-arrow-up-right"/></svg>
+            <span class="visually-hidden">(opens in a new tab)</span>
+          </a>
+        </div>
+
+        <dl class="cs-meta">
+          <div><dt>Role</dt><dd>Backend lead, team of three</dd></div>
+          <div><dt>Type</dt><dd>BCA final-year project</dd></div>
+          <div><dt>Status</dt><dd>Live, actively maintained</dd></div>
+          <div><dt>Core stack</dt><dd>Laravel 11 · PHP 8.2 · MySQL</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <!-- VIDEO -->
+    <section class="cs-video" aria-label="Demo video">
+      <div class="container">
+        <figure>
+          <!--
+            DEMO VIDEO: set ONE of these attributes and the player appears automatically.
+              data-video-src="assets/video/resqnet-demo.mp4"   (plus optional data-video-poster="assets/video/resqnet-poster.jpg")
+              data-video-embed="https://www.youtube.com/watch?v=VIDEO_ID"   (YouTube or Vimeo URL)
+            See assets/video/README.md. Use the same value in index.html.
+          -->
+          <div class="video-player is-standalone" data-video data-video-src="" data-video-embed="" data-video-title="ResQNet demo walkthrough">
+            <div class="video-placeholder">
+              <div class="video-placeholder-inner">
+                <div class="video-placeholder-icon" aria-hidden="true"><svg><use href="#i-play"/></svg></div>
+                <span class="video-placeholder-tag">Placeholder</span>
+                <p class="video-placeholder-title">ResQNet demo video coming soon</p>
+                <p class="video-placeholder-text">A recorded walkthrough of the live platform will appear here.</p>
+              </div>
+            </div>
+          </div>
+          <figcaption>Demo walkthrough of the live platform.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <div class="container cs-layout">
+
+      <!-- TABLE OF CONTENTS -->
+      <nav class="cs-toc" aria-label="Case study sections">
+        <p class="meta-label">On this page</p>
+        <ol data-spy>
+          <li><a href="#overview"><span class="toc-num">01</span>Overview &amp; problem</a></li>
+          <li><a href="#role"><span class="toc-num">02</span>My role</a></li>
+          <li><a href="#architecture"><span class="toc-num">03</span>Architecture &amp; API</a></li>
+          <li><a href="#security"><span class="toc-num">04</span>Auth &amp; security</a></li>
+          <li><a href="#integrations"><span class="toc-num">05</span>Integrations</a></li>
+          <li><a href="#database"><span class="toc-num">06</span>Database &amp; infrastructure</a></li>
+          <li><a href="#deployment"><span class="toc-num">07</span>Deployment &amp; maintenance</a></li>
+        </ol>
+      </nav>
+
+      <div class="cs-content">
+
+        <!-- 01 OVERVIEW -->
+        <section class="cs-section" id="overview" aria-labelledby="overview-title">
+          <p class="section-label">01</p>
+          <h2 id="overview-title">Overview and problem</h2>
+          <p>
+            Animal rescue involves several groups who rarely share a system: members of the public who find an injured
+            or stray animal, the shelters and rescue organisations that respond, and the people who adopt or donate.
+            Without a shared system, reports, adoption applications, donations and animal health records end up spread
+            across phone calls and separate tools.
+          </p>
+          <p>
+            ResQNet puts these workflows on one backend. Each type of user gets an interface suited to how they work:
+            a mobile app for the public, and web dashboards for organisations and platform administrators.
+          </p>
+
+          <div class="table-wrap">
+            <table class="data-table">
+              <caption class="visually-hidden">ResQNet user roles, interfaces and capabilities</caption>
+              <thead>
+                <tr><th scope="col">Role</th><th scope="col">Interface</th><th scope="col">What they can do</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Public user</td>
+                  <td>Mobile app<br><span class="mono">auth:sanctum</span></td>
+                  <td>Report a rescue with location and photo, browse and save pets, apply to adopt, donate through Khalti, receive notifications.</td>
+                </tr>
+                <tr>
+                  <td>Organisation</td>
+                  <td>Web dashboard<br><span class="mono">role:organization</span></td>
+                  <td>Claim rescue cases and dispatch team members, manage pets and their medical records, vaccinations and medications, review adoptions, manage staff and vets, see donations.</td>
+                </tr>
+                <tr>
+                  <td>Super admin</td>
+                  <td>Web dashboard<br><span class="mono">role:super_admin</span></td>
+                  <td>Approve or reject organisation registrations, manage users and pets, review donations (with Excel export), view platform analytics.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="screens">
+            <figure class="cs-figure">
+              <img src="assets/images/resqnet/org-dashboard.webp" width="1600" height="810" loading="lazy"
+                   alt="ResQNet organisation dashboard showing shelter capacity, active rescues, pets in care, average response time, pending adoptions and an intakes versus adoptions chart.">
+              <figcaption>Organisation dashboard, running locally with seeded demo data.</figcaption>
+            </figure>
+            <figure class="cs-figure">
+              <img src="assets/images/resqnet/rescue-reports.webp" width="1600" height="810" loading="lazy"
+                   alt="ResQNet rescue reports page with a live map of Pokhara for incoming rescue requests, case tabs and a rescue summary by priority.">
+              <figcaption>Rescue reports page with a live map of incoming cases and a breakdown by urgency (demo data).</figcaption>
+            </figure>
+          </div>
+        </section>
+
+        <!-- 02 ROLE -->
+        <section class="cs-section" id="role" aria-labelledby="role-title">
+          <p class="section-label">02</p>
+          <h2 id="role-title">My role</h2>
+          <p>
+            I was <strong>backend lead in a three-member team</strong>. The React Native (Expo) mobile app is a separate
+            client that consumes the API I designed. On the backend I was responsible for:
+          </p>
+          <ul class="check-list">
+            <li>REST APIs for rescue reports, adoption applications, health records and organisations</li>
+            <li>Token authentication with Laravel Sanctum and role-based access with Spatie Permission</li>
+            <li>Khalti payment integration, Firebase Cloud Messaging and real-time updates over Laravel Reverb</li>
+            <li>Database structure, including the rescue audit trail and polymorphic media relationships</li>
+            <li>QR codes for pet identification</li>
+            <li>The CircleCI pipeline for automated testing and deployment, and hosting on Heroku</li>
+            <li>DNS, SMTP and DMARC configuration for the production domain and email</li>
+            <li>Ongoing maintenance of the live platform: investigating production issues, fixing defects, deploying updates</li>
+          </ul>
+        </section>
+
+        <!-- 03 ARCHITECTURE -->
+        <section class="cs-section" id="architecture" aria-labelledby="architecture-title">
+          <p class="section-label">03</p>
+          <h2 id="architecture-title">Backend architecture and API development</h2>
+          <p>
+            ResQNet is a single Laravel 11 codebase with two interfaces: a versioned JSON API under
+            <code>api/v1</code> for the mobile app, and server-rendered Blade dashboards under
+            <code>/organization/*</code> and <code>/admin/*</code>. Controllers are split by audience
+            (<code>Api/</code>, <code>Web/Organization/</code>, <code>Web/Admin/</code>, <code>Auth/</code>). Input is
+            validated with Form Request classes and responses are shaped with API Resources, so mobile clients get a
+            consistent JSON format.
+          </p>
+
+          <figure class="cs-figure">
+            <div class="diagram" role="img" aria-labelledby="diagram-title diagram-desc">
+              <svg viewBox="0 0 960 620" xmlns="http://www.w3.org/2000/svg">
+                <title id="diagram-title">ResQNet system architecture</title>
+                <desc id="diagram-desc">Three clients (the React Native mobile app, the organisation and admin web dashboards, and the public QR pet page) call a single Laravel 11 application. The application uses MySQL, Spatie MediaLibrary storage, the Khalti payment API, Firebase Cloud Messaging and SMTP, and broadcasts events to a Laravel Reverb WebSocket server that pushes updates back to the clients. Code on the main branch is tested by CircleCI and deployed to Heroku.</desc>
+                <defs>
+                  <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="d-arrow" d="M0 0 10 5 0 10z"/></marker>
+                  <marker id="ah-pink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="d-arrow-pink" d="M0 0 10 5 0 10z"/></marker>
+                  <marker id="ah-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="d-arrow-blue" d="M0 0 10 5 0 10z"/></marker>
+                </defs>
+
+                <!-- WebSocket push back to clients -->
+                <path class="d-line-blue" d="M855 170 V22 H160 V38" marker-end="url(#ah-blue)"/>
+                <path class="d-line-blue" d="M440 22 V38" marker-end="url(#ah-blue)"/>
+                <text class="d-label-blue" x="470" y="15">WebSocket push · rescue-updates · organization.{id} · user.{id}</text>
+
+                <!-- Clients -->
+                <rect class="d-box" x="40" y="40" width="240" height="70" rx="8"/>
+                <text class="d-title" x="160" y="68" text-anchor="middle">Mobile app</text>
+                <text class="d-sub" x="160" y="88" text-anchor="middle">React Native (Expo) · public users</text>
+
+                <rect class="d-box" x="320" y="40" width="240" height="70" rx="8"/>
+                <text class="d-title" x="440" y="68" text-anchor="middle">Web dashboards</text>
+                <text class="d-sub" x="440" y="88" text-anchor="middle">Blade · organisations &amp; admins</text>
+
+                <rect class="d-box" x="600" y="40" width="140" height="70" rx="8"/>
+                <text class="d-title" x="670" y="68" text-anchor="middle">Public pet page</text>
+                <text class="d-sub" x="670" y="88" text-anchor="middle">QR code lookup</text>
+
+                <!-- Client to core -->
+                <path class="d-line" d="M160 110 V168" marker-end="url(#ah)"/>
+                <text class="d-label" x="168" y="145">HTTPS · api/v1 · Sanctum token</text>
+                <path class="d-line" d="M440 110 V168" marker-end="url(#ah)"/>
+                <text class="d-label" x="448" y="145">session · role middleware</text>
+                <path class="d-line" d="M670 110 V168" marker-end="url(#ah)"/>
+                <text class="d-label" x="678" y="145">/pets/{qrId}</text>
+
+                <!-- Core -->
+                <rect class="d-box-core" x="40" y="170" width="700" height="180" rx="10"/>
+                <text class="d-title" x="60" y="197">Laravel 11 application · PHP 8.2</text>
+                <text class="d-sub" x="300" y="197">single codebase, two interfaces</text>
+
+                <rect class="d-box" x="60" y="215" width="155" height="118" rx="6"/>
+                <text class="d-title" x="74" y="238">Routing</text>
+                <text class="d-sub" x="74" y="262">api/v1 · web · auth</text>
+                <text class="d-sub" x="74" y="282">auth:sanctum</text>
+                <text class="d-sub" x="74" y="302">is_active · role:*</text>
+                <text class="d-sub" x="74" y="322">signed URLs</text>
+
+                <rect class="d-box" x="230" y="215" width="155" height="118" rx="6"/>
+                <text class="d-title" x="244" y="238">Controllers</text>
+                <text class="d-sub" x="244" y="262">Api/ (mobile)</text>
+                <text class="d-sub" x="244" y="282">Web/Organization/</text>
+                <text class="d-sub" x="244" y="302">Web/Admin/</text>
+                <text class="d-sub" x="244" y="322">Auth/</text>
+
+                <rect class="d-box" x="400" y="215" width="155" height="118" rx="6"/>
+                <text class="d-title" x="414" y="238">Validation &amp; access</text>
+                <text class="d-sub" x="414" y="262">Form Requests</text>
+                <text class="d-sub" x="414" y="282">Policies</text>
+                <text class="d-sub" x="414" y="302">Spatie roles</text>
+                <text class="d-sub" x="414" y="322">API Resources</text>
+
+                <rect class="d-box" x="570" y="215" width="155" height="118" rx="6"/>
+                <text class="d-title" x="584" y="238">Domain</text>
+                <text class="d-sub" x="584" y="262">Eloquent models</text>
+                <text class="d-sub" x="584" y="282">Broadcast events</text>
+                <text class="d-sub" x="584" y="302">Notifications</text>
+                <text class="d-sub" x="584" y="322">Services (Khalti)</text>
+
+                <!-- Core to Reverb -->
+                <path class="d-line-pink" d="M740 230 H778" marker-end="url(#ah-pink)"/>
+                <rect class="d-box-blue" x="780" y="170" width="150" height="120" rx="8"/>
+                <text class="d-title" x="855" y="200" text-anchor="middle">Laravel Reverb</text>
+                <text class="d-sub" x="855" y="222" text-anchor="middle">WebSocket server</text>
+                <text class="d-sub" x="855" y="248" text-anchor="middle">broadcast events,</text>
+                <text class="d-sub" x="855" y="266" text-anchor="middle">presence + private</text>
+
+                <!-- Core to services -->
+                <path class="d-line" d="M122 350 V418" marker-end="url(#ah)"/>
+                <path class="d-line" d="M306 350 V418" marker-end="url(#ah)"/>
+                <path class="d-line" d="M490 350 V418" marker-end="url(#ah)"/>
+                <path class="d-line" d="M674 350 V418" marker-end="url(#ah)"/>
+                <path class="d-line" d="M730 350 V385 H858 V418" marker-end="url(#ah)"/>
+
+                <rect class="d-box" x="40" y="420" width="164" height="70" rx="8"/>
+                <text class="d-title" x="122" y="450" text-anchor="middle">MySQL 8</text>
+                <text class="d-sub" x="122" y="470" text-anchor="middle">migrations · soft deletes</text>
+
+                <rect class="d-box" x="224" y="420" width="164" height="70" rx="8"/>
+                <text class="d-title" x="306" y="450" text-anchor="middle">Media storage</text>
+                <text class="d-sub" x="306" y="470" text-anchor="middle">Spatie MediaLibrary</text>
+
+                <rect class="d-box" x="408" y="420" width="164" height="70" rx="8"/>
+                <text class="d-title" x="490" y="450" text-anchor="middle">Khalti API</text>
+                <text class="d-sub" x="490" y="470" text-anchor="middle">initiate · lookup</text>
+
+                <rect class="d-box" x="592" y="420" width="164" height="70" rx="8"/>
+                <text class="d-title" x="674" y="450" text-anchor="middle">Firebase FCM</text>
+                <text class="d-sub" x="674" y="470" text-anchor="middle">device tokens</text>
+
+                <rect class="d-box" x="776" y="420" width="164" height="70" rx="8"/>
+                <text class="d-title" x="858" y="450" text-anchor="middle">SMTP</text>
+                <text class="d-sub" x="858" y="470" text-anchor="middle">mail notifications</text>
+
+                <!-- Delivery pipeline -->
+                <text class="d-label" x="40" y="527">DELIVERY PIPELINE</text>
+                <rect class="d-group" x="40" y="535" width="900" height="70" rx="8"/>
+                <rect class="d-box" x="60" y="547" width="230" height="46" rx="6"/>
+                <text class="d-title" x="175" y="575" text-anchor="middle">GitHub · push to main</text>
+                <path class="d-line-pink" d="M290 570 H368" marker-end="url(#ah-pink)"/>
+                <rect class="d-box" x="370" y="547" width="270" height="46" rx="6"/>
+                <text class="d-title" x="505" y="568" text-anchor="middle">CircleCI</text>
+                <text class="d-sub" x="505" y="585" text-anchor="middle">build · migrate · php artisan test</text>
+                <path class="d-line-pink" d="M640 570 H698" marker-end="url(#ah-pink)"/>
+                <rect class="d-box" x="700" y="547" width="220" height="46" rx="6"/>
+                <text class="d-title" x="810" y="568" text-anchor="middle">Heroku</text>
+                <text class="d-sub" x="810" y="585" text-anchor="middle">heroku-php-apache2</text>
+              </svg>
+            </div>
+            <figcaption>System architecture, drawn from the routes, controllers, config and CI files in the repository.</figcaption>
+          </figure>
+
+          <h3>API surface</h3>
+          <p>
+            The mobile API is grouped by resource. Public routes cover registration, login, OTP verification and
+            browsing pets. Everything else sits behind <code>auth:sanctum</code>, and the user-specific routes add a
+            custom <code>is_active</code> middleware that blocks suspended accounts.
+          </p>
+          <div class="code-block">
+            <div class="code-block-head">
+              <span>routes/api.php (shortened)</span>
+              <a href="https://github.com/gurungsamriddhi/ResQNet-backend/blob/main/routes/api.php" target="_blank" rel="noopener noreferrer">view source</a>
+            </div>
+<pre><code>Route::prefix('v1')->group(function () {
+    Route::prefix('auth')->name('api.auth.')->group(function () {
+        Route::post('/register', [AuthController::class, 'register'])->name('register');
+        Route::post('/login', [AuthController::class, 'login'])->name('login');
+        Route::post('/verify-otp', [AuthController::class, 'verifyOtp'])->name('verify-otp');
+        <span class="c">// …</span>
+    });
+
+    Route::middleware(['auth:sanctum'])->group(function () {
+        Route::middleware(['is_active'])->group(function () {
+            Route::prefix('rescues')->name('api.rescues.')->group(function () {
+                Route::get('/', [RescueController::class, 'index'])->name('index');
+                Route::post('/', [RescueController::class, 'store'])->name('store');
+                Route::get('/{report}', [RescueController::class, 'show'])->name('show');
+            });
+
+            Route::prefix('donations')->name('api.donations.')->group(function () {
+                Route::post('/khalti/initiate', [DonationController::class, 'khaltiInitiate'])->name('khalti.initiate');
+                Route::post('/khalti/verify', [DonationController::class, 'khaltiVerify'])->name('khalti.verify');
+                <span class="c">// …</span>
+            });
+            <span class="c">// user, notifications, saved-pets, adoptions …</span>
+        });
+    });
+});</code></pre>
+          </div>
+
+          <h3>Rescue case lifecycle</h3>
+          <p>
+            The main workflow is a rescue case moving through four states. Every transition is validated against an
+            explicit table of allowed moves, recorded in a history table, and broadcast to dashboards in real time.
+          </p>
+          <ol class="flow">
+            <li><strong>reported</strong>A public user submits a report from the app with location, urgency and an optional photo. Organisations see it appear live.</li>
+            <li><strong>assigned</strong>An organisation claims the case. Only one organisation can claim it (see section 06).</li>
+            <li><strong>in_progress</strong>The organisation dispatches team members, who get an email with a signed link to the case details.</li>
+            <li><strong>resolved</strong>A pet profile and intake medical record are created in the same transaction, and the reporter is notified.</li>
+          </ol>
+          <div class="code-block">
+            <div class="code-block-head">
+              <span>app/Http/Controllers/Web/Organization/RescueController.php · updateStatus() (shortened)</span>
+              <a href="https://github.com/gurungsamriddhi/ResQNet-backend/blob/main/app/Http/Controllers/Web/Organization/RescueController.php" target="_blank" rel="noopener noreferrer">view source</a>
+            </div>
+<pre><code>$allowed = [
+    'reported' => ['assigned'],
+    'assigned' => ['in_progress', 'resolved'],
+    'in_progress' => ['resolved'],
+];
+
+$current = $report->status;
+
+if (!isset($allowed[$current]) || !in_array($validated['status'], $allowed[$current])) {
+    return response()->json([
+        'message' => "Cannot transition from '{$current}' to '{$validated['status']}'.",
+    ], 422);
+}
+
+DB::transaction(function () use ($report, $validated, $current, $orgId, &amp;$pet) {
+    <span class="c">// on 'resolved': create the Pet (status in_care) and an intake MedicalRecord …</span>
+    $report->update($updateData);
+
+    RescueCaseHistory::create([
+        'rescue_report_id' => $report->id,
+        'from_status' => $current,
+        'to_status' => $validated['status'],
+        'changed_by' => auth()->id(),
+        <span class="c">// …</span>
+    ]);
+});
+
+$this->safeBroadcast(new CaseStatusUpdatedEvent($report, $current));</code></pre>
+          </div>
+        </section>
+
+        <!-- 04 SECURITY -->
+        <section class="cs-section" id="security" aria-labelledby="security-title">
+          <p class="section-label">04</p>
+          <h2 id="security-title">Authentication and security</h2>
+          <p>
+            The two interfaces use different authentication: the mobile app uses <strong>Laravel Sanctum</strong>
+            personal access tokens, and the dashboards use session authentication. Authorisation is layered on top of
+            that.
+          </p>
+          <ul class="check-list">
+            <li><strong>Roles</strong> with Spatie Permission: <code>public_user</code>, <code>organization</code> and <code>super_admin</code>, enforced through <code>role:</code> route middleware.</li>
+            <li><strong>Policies</strong> for pets, rescue reports, adoption requests, donations and vets, so an organisation can only act on its own records.</li>
+            <li><strong>Account status</strong>: the custom <code>CheckIsActive</code> middleware blocks suspended users from the user-specific API routes (rescues, adoptions, donations, notifications and profile).</li>
+            <li><strong>OTP verification</strong>: six-digit email codes stored in the cache for 10 minutes, with a 60-second resend cooldown, for registration and password reset.</li>
+            <li><strong>Signed URLs</strong> give dispatched team members access to one case without a login, and the link can't be tampered with.</li>
+            <li><strong>Rate limiting</strong> on organisation password changes: repeated failures log the user out and send them to password reset.</li>
+            <li><strong>Channel authorisation</strong> so WebSocket subscribers only receive events they're entitled to (below).</li>
+          </ul>
+          <div class="code-block">
+            <div class="code-block-head">
+              <span>routes/channels.php (comments removed)</span>
+              <a href="https://github.com/gurungsamriddhi/ResQNet-backend/blob/main/routes/channels.php" target="_blank" rel="noopener noreferrer">view source</a>
+            </div>
+<pre><code>Broadcast::channel('organization.{orgId}', function ($user, $orgId) {
+    if ($user->organization &amp;&amp; $user->organization->id === (int) $orgId) {
+        return ['id' => $user->id, 'name' => $user->name];
+    }
+
+    return false;
+});
+
+Broadcast::channel('rescue-updates', function ($user) {
+    if ($user->hasRole('organization') || $user->hasRole('super_admin')) {
+        return ['id' => $user->id, 'name' => $user->name, 'organization_id' => $user->organization_id];
+    }
+
+    return false;
+});
+
+Broadcast::channel('user.{userId}', function ($user, $userId) {
+    return $user->id === (int) $userId;
+});</code></pre>
+          </div>
+        </section>
+
+        <!-- 05 INTEGRATIONS -->
+        <section class="cs-section" id="integrations" aria-labelledby="integrations-title">
+          <p class="section-label">05</p>
+          <h2 id="integrations-title">Third-party integrations</h2>
+
+          <h3>Real-time updates with Laravel Reverb</h3>
+          <p>
+            Domain events such as <code>NewRescueReportEvent</code>, <code>CaseClaimedEvent</code>,
+            <code>CaseStatusUpdatedEvent</code> and <code>AdoptionStatusUpdatedEvent</code> are broadcast through Reverb.
+            Organisation dashboards listen with Laravel Echo, so a new report appears on the map without a refresh. The
+            mobile app authenticates its private channel through a Sanctum-protected <code>/api/broadcasting/auth</code>
+            endpoint. Notifications are also stored in the database, so users can catch up on anything they missed.
+          </p>
+
+          <h3>Khalti payments</h3>
+          <p>
+            Donations use Khalti's ePayment flow. The backend starts a payment and returns the payment URL to the app.
+            After the user pays, the backend <strong>looks the payment up with Khalti directly</strong> before marking
+            the donation complete, rather than trusting the status in the redirect. The lookup response is stored with
+            the donation for auditing, and admins can send donors an appreciation email from the dashboard.
+          </p>
+          <div class="code-block">
+            <div class="code-block-head">
+              <span>app/Services/KhaltiService.php (shortened)</span>
+              <a href="https://github.com/gurungsamriddhi/ResQNet-backend/blob/main/app/Services/KhaltiService.php" target="_blank" rel="noopener noreferrer">view source</a>
+            </div>
+<pre><code>public function lookupPayment(string $pidx): array
+{
+    $response = Http::withHeaders([
+        'Authorization' => 'Key ' . $this->secretKey,
+        'Content-Type' => 'application/json',
+    ])->post($this->baseUrl . 'epayment/lookup/', [
+        'pidx' => $pidx,
+    ]);
+
+    if ($response->failed()) {
+        throw new RuntimeException(
+            'Khalti lookup failed: ' . ($response->json()['detail'] ?? $response->body())
+        );
+    }
+
+    return $response->json();
+}
+
+public function isCompleted(array $lookupResult): bool
+{
+    return ($lookupResult['status'] ?? '') === 'Completed';
+}</code></pre>
+          </div>
+
+          <h3>Firebase Cloud Messaging</h3>
+          <p>
+            Users, organisations and organisation team members each store an FCM device token. The app updates it
+            through <code>POST /api/v1/user/fcm-token</code>, and it's cleared on logout so a signed-out device stops
+            receiving pushes. Each model routes push notifications to its token through
+            <code>laravel-notification-channels/fcm</code>.
+          </p>
+
+          <h3>Email, media and QR codes</h3>
+          <ul class="check-list">
+            <li><strong>Mail</strong>: organisation approval, rejection and suspension emails, donation appreciation, team dispatch and OTP codes.</li>
+            <li><strong>Spatie MediaLibrary</strong> stores pet photos and organisation registration documents.</li>
+            <li><strong>QR codes</strong>: each pet gets an ID like <code>RQN-00042</code> when it is created, rendered as an SVG QR code that opens the pet's public page.</li>
+          </ul>
+        </section>
+
+        <!-- 06 DATABASE -->
+        <section class="cs-section" id="database" aria-labelledby="database-title">
+          <p class="section-label">06</p>
+          <h2 id="database-title">Database and infrastructure</h2>
+          <p>
+            The schema is built from incremental Laravel migrations on MySQL 8. The core entities are users and their
+            adoption profiles, organisations and their team members, pets with medical records, vaccinations and
+            medications, vets, rescue reports with assignments and history, adoption requests, donations and saved
+            pets, plus Spatie's role, permission and media tables.
+          </p>
+          <ul class="check-list">
+            <li><strong>Audit trail</strong>: <code>rescue_case_histories</code> records each status change with who made it and why; soft deletes keep history for major entities.</li>
+            <li><strong>Polymorphic media</strong>: photos and documents attach to any model through MediaLibrary's <code>media</code> table instead of one image table per entity.</li>
+            <li><strong>Data integrity under concurrency</strong>: claiming a rescue case is a single conditional update, so two organisations can't both claim the same case.</li>
+          </ul>
+          <div class="code-block">
+            <div class="code-block-head">
+              <span>app/Http/Controllers/Web/Organization/RescueController.php · acceptCase() (shortened)</span>
+              <a href="https://github.com/gurungsamriddhi/ResQNet-backend/blob/main/app/Http/Controllers/Web/Organization/RescueController.php" target="_blank" rel="noopener noreferrer">view source</a>
+            </div>
+<pre><code>$updated = RescueReport::where('id', $report->id)
+    ->whereNull('organization_id')
+    ->where('status', 'reported')
+    ->update([
+        'organization_id' => $orgId,
+        'status' => 'assigned',
+        'assigned_at' => now(),
+    ]);
+
+if ($updated === 0) {
+    return response()->json([
+        'message' => 'This case has already been claimed by another organization.',
+    ], 409);
+}</code></pre>
+          </div>
+        </section>
+
+        <!-- 07 DEPLOYMENT -->
+        <section class="cs-section" id="deployment" aria-labelledby="deployment-title">
+          <p class="section-label">07</p>
+          <h2 id="deployment-title">Deployment and ongoing maintenance</h2>
+          <p>
+            Every push runs a CircleCI job on PHP 8.3 with a MySQL 8 service container: install Composer and npm
+            dependencies, build the frontend assets, run migrations and run the PHPUnit test suite. The feature tests
+            cover authentication, password reset, the adoption and saved-pet APIs, pets, vets, health records and the
+            rescue workflow. Only when that passes on <code>main</code> does a second job deploy to Heroku, where the app
+            runs on the <code>heroku-php-apache2</code> buildpack.
+          </p>
+          <div class="code-block">
+            <div class="code-block-head">
+              <span>.circleci/config.yml (workflow)</span>
+              <a href="https://github.com/gurungsamriddhi/ResQNet-backend/blob/main/.circleci/config.yml" target="_blank" rel="noopener noreferrer">view source</a>
+            </div>
+<pre><code>workflows:
+  version: 2
+  build_test_deploy:
+    jobs:
+      - build_and_test
+      - deploy:
+          requires:
+            - build_and_test
+          filters:
+            branches:
+              only: main</code></pre>
+          </div>
+          <p>
+            Beyond the pipeline, I configured DNS for the production domain and SMTP with DMARC so that transactional
+            email, such as OTP codes and dispatch notices, is delivered reliably. Since launch I've kept maintaining the
+            live platform: investigating production issues, fixing defects and deploying updates through the same pipeline.
+          </p>
+
+          <div class="cs-end">
+            <p class="section-label">Links</p>
+            <div class="btn-row">
+              <a href="https://resqnet.tech" class="btn btn-primary" target="_blank" rel="noopener noreferrer">
+                Visit resqnet.tech
+                <svg aria-hidden="true"><use href="#i-arrow-up-right"/></svg>
+                <span class="visually-hidden">(opens in a new tab)</span>
+              </a>
+              <a href="https://github.com/gurungsamriddhi/ResQNet-backend" class="btn btn-secondary" target="_blank" rel="noopener noreferrer">
+                Backend source
+                <svg aria-hidden="true"><use href="#i-arrow-up-right"/></svg>
+                <span class="visually-hidden">(opens in a new tab)</span>
+              </a>
+              <a href="index.html#contact" class="btn btn-secondary">Contact me</a>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>© <span data-year>2026</span> Samriddhi Gurung</p>
+      <ul class="footer-links">
+        <li><a href="https://github.com/gurungsamriddhi" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+        <li><a href="https://linkedin.com/in/gurungsamriddhi" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+        <li><a href="index.html">Home</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

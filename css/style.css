@@ -742,7 +742,8 @@ a { color: inherit; }
 .cs-hero { padding: 64px 0 40px; }
 
 .back-link {
-  display: inline-flex;
+  display: flex;
+  width: fit-content;
   align-items: center;
   gap: 0.4rem;
   font-size: 0.87rem;
@@ -794,7 +795,8 @@ a { color: inherit; }
   display: grid;
   grid-template-columns: 220px minmax(0, 1fr);
   gap: 4rem;
-  padding: 56px 0 96px;
+  padding-top: 56px;
+  padding-bottom: 96px;
 }
 
 .cs-toc { position: sticky; top: calc(var(--header-h) + 32px); align-self: start; }

@@ -1,5 +1,5 @@
 /* ===================================================================
-   SUSHMA H S // MINIMAL TECH PORTFOLIO
+   SAMRIDDHI GURUNG // MINIMAL TECH PORTFOLIO
    Typography: Single unified font (Inter) + Monospace (JetBrains Mono)
    Wording: Concise, minimal, confident
    =================================================================== */
@@ -27,8 +27,8 @@
   --text-muted: #64748b;
   --text-bright: #ffffff;
 
-  --accent-cyan: #38bdf8;
-  --accent-cyan-glow: rgba(56, 189, 248, 0.2);
+  --accent-cherryrose: rgb(218, 32, 88);
+  --accent-cherryrose-glow: rgba(222, 49, 99, 0.2);
   --accent-emerald: #34d399;
 
   --radius-sm: 6px;
@@ -57,7 +57,7 @@
   --text-muted: #94a3b8;
   --text-bright: #020617;
 
-  --accent-cyan: #0284c7;
+  --accent-cherryrose: #0284c7;
 }
 
 *, *::before, *::after {
@@ -83,7 +83,7 @@ body {
 }
 
 ::selection {
-  background: var(--accent-cyan);
+  background: var(--accent-cherryrose);
   color: #090b10;
 }
 
@@ -162,7 +162,7 @@ body {
 .hud-brand-symbol {
   width: 20px;
   height: 20px;
-  background: var(--accent-cyan);
+  background: var(--accent-cherryrose);
   border-radius: 4px;
   display: flex;
   align-items: center;
@@ -188,7 +188,7 @@ body {
 }
 
 .nav-link:hover, .nav-link.active {
-  color: var(--accent-cyan);
+  color: var(--accent-cherryrose);
 }
 
 .hud-controls {
@@ -223,7 +223,7 @@ body {
 }
 
 .hud-btn.active {
-  color: var(--accent-cyan);
+  color: var(--accent-cherryrose);
   background: rgba(56, 189, 248, 0.1);
 }
 
@@ -295,7 +295,7 @@ body {
 }
 
 .hero-cursor {
-  color: var(--accent-cyan);
+  color: var(--accent-cherryrose);
   font-weight: 300;
   animation: cursor-blink 1s step-end infinite;
 }
@@ -319,7 +319,7 @@ body {
   border-radius: var(--radius-sm);
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid var(--border-subtle);
-  color: var(--accent-cyan);
+  color: var(--accent-cherryrose);
 }
 
 
@@ -339,7 +339,7 @@ body {
 }
 
 .btn-primary {
-  background: var(--accent-cyan);
+  background: var(--accent-cherryrose);
   color: #090b10;
   border: none;
   font-size: 0.85rem;
@@ -394,7 +394,7 @@ body {
 }
 
 .metric-val .metric-unit {
-  color: var(--accent-cyan);
+  color: var(--accent-cherryrose);
   font-size: 0.95rem;
 }
 
@@ -426,7 +426,7 @@ body {
   height: 110px;
   border-radius: 50%;
   padding: 3px;
-  border: 2px solid var(--accent-cyan);
+  border: 2px solid var(--accent-cherryrose);
   box-shadow: 0 0 20px -4px rgba(56, 189, 248, 0.35);
   position: relative;
 }
@@ -448,7 +448,7 @@ body {
 
 .holo-person-role {
   font-size: 0.8rem;
-  color: var(--accent-cyan);
+  color: var(--accent-cherryrose);
   font-family: var(--font-mono);
 }
 
@@ -473,7 +473,7 @@ body {
   font-family: var(--font-mono);
   letter-spacing: 1px;
   text-transform: uppercase;
-  color: var(--accent-cyan);
+  color: var(--accent-cherryrose);
   margin-bottom: 0.35rem;
 }
 
@@ -588,7 +588,7 @@ body {
   background: transparent;
   border: none;
   font-size: 0.78rem;
-  color: var(--accent-cyan);
+  color: var(--accent-cherryrose);
   cursor: pointer;
   padding: 0;
   font-weight: 500;
@@ -644,7 +644,7 @@ body {
 }
 
 .sandbox-tab.active {
-  color: var(--accent-cyan);
+  color: var(--accent-cherryrose);
   background: rgba(56, 189, 248, 0.1);
 }
 
@@ -660,7 +660,7 @@ body {
 
 .btn-sandbox-copy:hover {
   color: var(--text-bright);
-  border-color: var(--accent-cyan);
+  border-color: var(--accent-cherryrose);
 }
 
 .sandbox-body {
@@ -714,7 +714,7 @@ body {
 .benchmark-fill {
   height: 100%;
   border-radius: var(--radius-full);
-  background: var(--accent-cyan);
+  background: var(--accent-cherryrose);
 }
 
 /* Skills: Compact Minimal Badges */
@@ -745,7 +745,7 @@ body {
 .skill-pill-item span.skill-dot {
   width: 6px;
   height: 6px;
-  background: var(--accent-cyan);
+  background: var(--accent-cherryrose);
   border-radius: 50%;
 }
 
@@ -789,7 +789,7 @@ body {
   font-family: var(--font-mono);
   font-size: 0.7rem;
   font-weight: 500;
-  color: var(--accent-cyan);
+  color: var(--accent-cherryrose);
   background: rgba(56, 189, 248, 0.08);
   border: 1px solid rgba(56, 189, 248, 0.2);
   padding: 0.15rem 0.5rem;
@@ -835,7 +835,7 @@ body {
 }
 
 .cert-view-link {
-  color: var(--accent-cyan);
+  color: var(--accent-cherryrose);
   font-size: 0.78rem;
   font-weight: 500;
   text-decoration: none;
@@ -880,7 +880,7 @@ body {
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: var(--accent-cyan);
+  background: var(--accent-cherryrose);
 }
 
 .timeline-role {
@@ -891,7 +891,7 @@ body {
 
 .timeline-company {
   font-size: 0.82rem;
-  color: var(--accent-cyan);
+  color: var(--accent-cherryrose);
   margin-bottom: 0.25rem;
 }
 
@@ -930,7 +930,7 @@ body {
 }
 
 .contact-channel-row a:hover {
-  color: var(--accent-cyan);
+  color: var(--accent-cherryrose);
 }
 
 .contact-form {
@@ -951,7 +951,7 @@ body {
 }
 
 .form-input-sm:focus, .form-textarea-sm:focus {
-  border-color: var(--accent-cyan);
+  border-color: var(--accent-cherryrose);
 }
 
 .form-textarea-sm {
@@ -979,7 +979,7 @@ body {
 }
 
 .footer-inner a:hover {
-  color: var(--accent-cyan);
+  color: var(--accent-cherryrose);
 }
 
 /* Modals & Drawers */
@@ -1046,7 +1046,7 @@ body {
 
 .cmd-item:hover, .cmd-item.selected {
   background: rgba(56, 189, 248, 0.1);
-  color: var(--accent-cyan);
+  color: var(--accent-cherryrose);
 }
 
 .terminal-drawer {
@@ -1077,7 +1077,7 @@ body {
   justify-content: space-between;
   font-size: 0.75rem;
   font-family: var(--font-mono);
-  color: var(--accent-cyan);
+  color: var(--accent-cherryrose);
 }
 
 .terminal-close-btn {
@@ -1142,7 +1142,7 @@ body {
   bottom: 1.5rem;
   right: 1.5rem;
   background: var(--bg-surface-elevated);
-  border: 1px solid var(--accent-cyan);
+  border: 1px solid var(--accent-cherryrose);
   padding: 0.55rem 1rem;
   border-radius: var(--radius-sm);
   font-size: 0.78rem;

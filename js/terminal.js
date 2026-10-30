@@ -1,7 +1,7 @@
 /* ===================================================================
-   SUSHMA H S // MINIMAL & UNIQUE TERMINAL & COMMAND HUD
-   GitHub: https://github.com/sushmashivamadegowda
-   Projects: TraceMind, CVantage-AI, BulkApply, Legacy
+   SAMRIDDHI GURUNG // TERMINAL & COMMAND HUD
+   GitHub: https://github.com/gurungsamriddhi
+   Projects: ResQNet
    =================================================================== */
 
 class TerminalEngine {
@@ -253,7 +253,7 @@ class TerminalEngine {
   }
 
   executeCLI(rawCmd) {
-    this.printOutput(`<span style="color: var(--accent-emerald)">guest@sushma-backend:~$</span> ${this.escapeHtml(rawCmd)}`);
+    this.printOutput(`<span style="color: var(--accent-emerald)">guest@samriddhi:~$</span> ${this.escapeHtml(rawCmd)}`);
 
     const parts = rawCmd.split(' ');
     const cmd = parts[0].toLowerCase();
@@ -279,15 +279,14 @@ class TerminalEngine {
     this.printOutput(`
       <div style="margin: 0.35rem 0;">
         <span style="color: var(--accent-cyan); font-weight: bold;">AVAILABLE SYSTEM COMMANDS:</span><br>
-        &bull; <span style="color: var(--accent-cyan)">whoami</span> - Identity, backend specialization & location<br>
-        &bull; <span style="color: var(--accent-cyan)">projects</span> - View TraceMind, CVantage-AI, BulkApply, Legacy<br>
-        &bull; <span style="color: var(--accent-cyan)">skills</span> - Python, FastAPI, PostgreSQL, SQLAlchemy, Docker<br>
-        &bull; <span style="color: var(--accent-cyan)">certs / cloud</span> - View Cloud certifications section<br>
-        &bull; <span style="color: var(--accent-cyan)">timeline / exp</span> - Smartborn, Varcons Technologies, Education<br>
+        &bull; <span style="color: var(--accent-cyan)">whoami</span> - Identity, specialization & location<br>
+        &bull; <span style="color: var(--accent-cyan)">projects</span> - View ResQNet emergency response platform<br>
+        &bull; <span style="color: var(--accent-cyan)">skills</span> - Laravel, PHP, WebSockets, Python, FastAPI<br>
+        &bull; <span style="color: var(--accent-cyan)">certs / cloud</span> - View Anthropic & Claude certifications<br>
+        &bull; <span style="color: var(--accent-cyan)">timeline / exp</span> - Smartborn, Varcons, Education<br>
         &bull; <span style="color: var(--accent-cyan)">git log</span> - Recent git commits and milestones<br>
         &bull; <span style="color: var(--accent-cyan)">cat resume.md</span> - Display full qualifications digest<br>
-        &bull; <span style="color: var(--accent-cyan)">contact</span> - Output email & phone coordinates<br>
-        &bull; <span style="color: var(--accent-cyan)">phone</span> - Print direct phone (+91-8904261543)<br>
+        &bull; <span style="color: var(--accent-cyan)">contact</span> - Output email & social links<br>
         &bull; <span style="color: var(--accent-cyan)">theme [dark|light]</span> - Switch visual mode<br>
         &bull; <span style="color: var(--accent-cyan)">sound [on|off]</span> - Toggle Web Audio synthesizer<br>
         &bull; <span style="color: var(--accent-cyan)">sudo hire</span> - Direct developer hiring handshake<br>
@@ -299,9 +298,9 @@ class TerminalEngine {
   cmdWhoami() {
     this.printOutput(`
       <div style="margin: 0.35rem 0; line-height: 1.6;">
-        <span style="color: var(--accent-cyan); font-weight: 700;">Sushma H S // Software Developer & Backend Specialist</span><br>
-        Hands-on experience delivering production backend services using Python, FastAPI, Django, and PostgreSQL.<br>
-        <span style="color: var(--text-muted)">Location: Bengaluru, India &bull; GitHub: github.com/sushmashivamadegowda</span>
+        <span style="color: var(--accent-cyan); font-weight: 700;">Samriddhi Gurung // Aspiring Backend Developer</span><br>
+        Building real-time systems with Laravel, PHP, WebSockets, and Firebase. Passionate about bioinformatics.<br>
+        <span style="color: var(--text-muted)">Location: Nepal &bull; Pokhara University &bull; GitHub: github.com/gurungsamriddhi</span>
       </div>
     `);
   }
@@ -310,10 +309,8 @@ class TerminalEngine {
     this.printOutput(`
       <div style="margin: 0.35rem 0;">
         <span style="color: var(--accent-cyan); font-weight: 700;">FEATURED PROJECTS:</span><br>
-        [01] <b>TraceMind</b> &mdash; <i>FastAPI &bull; OpenTelemetry &bull; Python</i> [214ms P85, Distributed Tracing]<br>
-        [02] <b>CVantage-AI</b> &mdash; <i>Python &bull; Vector Embeddings &bull; Pydantic</i> [94% Match Fit, Resume Intelligence]<br>
-        [03] <b>BulkApply</b> &mdash; <i>Asyncio Queues &bull; Playwright &bull; FastAPI</i> [78.5% Success, 3.4k Dispatched]<br>
-        [04] <b>Legacy</b> &mdash; <i>SQLAlchemy &bull; Django &bull; PostgreSQL</i> [Schema Modernization & Migration]
+        [01] <b>ResQNet</b> &mdash; <i>Laravel &bull; WebSockets &bull; Firebase FCM &bull; Khalti</i> [Real-time Emergency Dispatch]<br>
+        <span style="color: var(--text-muted)">Emergency response coordination platform with live dispatch, push notifications & payment integration.</span>
       </div>
     `);
     document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' });
@@ -323,10 +320,11 @@ class TerminalEngine {
     this.printOutput(`
       <div style="margin: 0.35rem 0;">
         <span style="color: var(--accent-cyan); font-weight: 700;">TECHNICAL SKILLS:</span><br>
-        &bull; <b>Languages:</b> Python, SQL, JavaScript (basics)<br>
-        &bull; <b>Frameworks:</b> FastAPI, Django, Flask (beginner), SQLAlchemy, Pydantic, React<br>
-        &bull; <b>Databases:</b> PostgreSQL, MySQL (schema design, indexing, query optimization, joins)<br>
-        &bull; <b>Tools:</b> Git, GitHub, VS Code, Postman, Docker (basics), Agile/Scrum
+        &bull; <b>Languages:</b> PHP, Python, SQL, JavaScript<br>
+        &bull; <b>Frameworks:</b> Laravel, FastAPI, Django, Alpine.js, React (Basics)<br>
+        &bull; <b>Databases:</b> MySQL, PostgreSQL (schema design, indexing, query optimization)<br>
+        &bull; <b>Real-time:</b> WebSockets (Laravel Reverb), Firebase FCM<br>
+        &bull; <b>Tools:</b> Git, GitHub, Docker, Postman, Playwright, OpenTelemetry
       </div>
     `);
   }
@@ -358,7 +356,7 @@ class TerminalEngine {
         &bull; <b>Software Developer @ Smartborn</b> (Jun 2026 &mdash; Present) &bull; FastAPI, PostgreSQL, 40% API speedup<br>
         &bull; <b>Software Developer Intern @ Smartborn</b> (Dec 2025 &mdash; Jun 2026) &bull; 5+ features, 30+ bugs resolved<br>
         &bull; <b>Tech Intern @ Varcons Technologies</b> (Jan 2025 &mdash; Apr 2025) &bull; 35% refactoring & SQL optimization<br>
-        &bull; <b>B.E. in Computer Science & Engineering</b> &mdash; Dr. SMCE, Nelamangala (CGPA: 8.1/10)
+        &bull; <b>B.E. in Computer Science & Engineering</b> &mdash; Dr. SMCE (CGPA: 8.1/10)
       </div>
     `);
     document.getElementById('experience')?.scrollIntoView({ behavior: 'smooth' });
@@ -367,14 +365,14 @@ class TerminalEngine {
   cmdGitLog() {
     this.printOutput(`
       <div style="margin: 0.35rem 0; font-family: var(--font-mono); font-size: 0.78rem;">
-        <span style="color: #fbbf24">commit 7a91d2c</span> (HEAD -&gt; <span style="color: var(--accent-cyan)">main</span>)<br>
-        Author: Sushma H S &lt;hssushma2004@gmail.com&gt;<br>
-        Date:   Thu Oct 15 2026<br><br>
-        &nbsp;&nbsp;&nbsp;&nbsp;feat(tracemind): implement distributed OpenTelemetry execution span tracker<br><br>
-        <span style="color: #fbbf24">commit 4e82b01</span><br>
-        Author: Sushma H S &lt;hssushma2004@gmail.com&gt;<br>
-        Date:   Sun Oct 04 2026<br><br>
-        &nbsp;&nbsp;&nbsp;&nbsp;feat(cvantage-ai): optimize vector cosine similarity scoring across 1.8k candidate resumes
+        <span style="color: #fbbf24">commit a3f8e1d</span> (HEAD -&gt; <span style="color: var(--accent-cyan)">main</span>)<br>
+        Author: Samriddhi Gurung &lt;grgsamriddhi4@gmail.com&gt;<br>
+        Date:   Thu Oct 30 2026<br><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;feat(resqnet): implement real-time dispatch with Laravel Reverb WebSockets<br><br>
+        <span style="color: #fbbf24">commit 7b2c90f</span><br>
+        Author: Samriddhi Gurung &lt;grgsamriddhi4@gmail.com&gt;<br>
+        Date:   Sun Oct 15 2026<br><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;feat(resqnet): add Firebase FCM push notifications for zone-based alerts
       </div>
     `);
   }
@@ -382,11 +380,11 @@ class TerminalEngine {
   cmdResume() {
     this.printOutput(`
       <div style="margin: 0.35rem 0; border-left: 2px solid var(--accent-cyan); padding-left: 0.75rem;">
-        <span style="color: var(--accent-cyan); font-weight: bold;">SUSHMA H S &mdash; RESUME SUMMARY</span><br>
-        Software Developer | Python &bull; FastAPI &bull; PostgreSQL &bull; Django<br>
-        Location: Bengaluru, India &bull; Phone: +91-8904261543 &bull; Email: hssushma2004@gmail.com<br>
+        <span style="color: var(--accent-cyan); font-weight: bold;">SAMRIDDHI GURUNG &mdash; RESUME SUMMARY</span><br>
+        Aspiring Backend Developer | Laravel &bull; PHP &bull; WebSockets &bull; Python &bull; FastAPI<br>
+        Location: Nepal &bull; Pokhara University &bull; Email: grgsamriddhi4@gmail.com<br>
         Education: B.E. in CSE, Dr. SMCE (CGPA: 8.1/10)<br>
-        GitHub: <a href="https://github.com/sushmashivamadegowda" target="_blank" style="color: var(--accent-cyan)">github.com/sushmashivamadegowda</a>
+        GitHub: <a href="https://github.com/gurungsamriddhi" target="_blank" style="color: var(--accent-cyan)">github.com/gurungsamriddhi</a>
       </div>
     `);
   }
@@ -395,10 +393,9 @@ class TerminalEngine {
     this.printOutput(`
       <div style="margin: 0.35rem 0;">
         <span style="color: var(--accent-cyan); font-weight: 700;">CHANNELS:</span><br>
-        &bull; Email: <a href="mailto:hssushma2004@gmail.com" style="color: var(--accent-cyan)">hssushma2004@gmail.com</a><br>
-        &bull; Phone: <span style="color: var(--accent-emerald)">+91-8904261543</span><br>
-        &bull; GitHub: <a href="https://github.com/sushmashivamadegowda" target="_blank" style="color: var(--accent-cyan)">github.com/sushmashivamadegowda</a><br>
-        &bull; LinkedIn: <a href="https://linkedin.com/in/sushmahs" target="_blank" style="color: var(--accent-cyan)">linkedin.com/in/sushmahs</a>
+        &bull; Email: <a href="mailto:grgsamriddhi4@gmail.com" style="color: var(--accent-cyan)">grgsamriddhi4@gmail.com</a><br>
+        &bull; GitHub: <a href="https://github.com/gurungsamriddhi" target="_blank" style="color: var(--accent-cyan)">github.com/gurungsamriddhi</a><br>
+        &bull; LinkedIn: <a href="https://linkedin.com/in/gurungsamriddhi" target="_blank" style="color: var(--accent-cyan)">linkedin.com/in/gurungsamriddhi</a>
       </div>
     `);
     document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
@@ -407,7 +404,7 @@ class TerminalEngine {
   cmdPhone() {
     this.printOutput(`
       <div style="margin: 0.35rem 0;">
-        <span style="color: var(--accent-emerald); font-weight: 700;">Direct Phone:</span> +91-8904261543
+        <span style="color: var(--accent-emerald); font-weight: 700;">Email:</span> grgsamriddhi4@gmail.com
       </div>
     `);
   }
@@ -445,9 +442,9 @@ class TerminalEngine {
       if (window.soundEngine) window.soundEngine.playSuccess();
       this.printOutput(`
         <div style="margin: 0.45rem 0; padding: 0.75rem; background: rgba(52, 211, 153, 0.12); border: 1px solid var(--accent-emerald); border-radius: 6px;">
-          <span style="color: var(--accent-emerald); font-weight: bold;">ACCESS GRANTED: PRIORITY SUSHMA CANDIDACY INITIALIZED!</span><br>
-          Routing direct transmission to Sushma H S...<br>
-          Direct: +91-8904261543 | hssushma2004@gmail.com
+          <span style="color: var(--accent-emerald); font-weight: bold;">ACCESS GRANTED: CONNECTING TO SAMRIDDHI!</span><br>
+          Routing direct transmission to Samriddhi Gurung...<br>
+          Email: grgsamriddhi4@gmail.com
         </div>
       `);
       setTimeout(() => {

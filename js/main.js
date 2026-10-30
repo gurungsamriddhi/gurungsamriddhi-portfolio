@@ -1,170 +1,145 @@
 /* ===================================================================
-   SUSHMA H S // MINIMAL & UNIQUE BACKEND PORTFOLIO LOGIC
-   Projects: TraceMind, CVantage-AI, BulkApply, Legacy
-   GitHub: https://github.com/sushmashivamadegowda
+   SAMRIDDHI GURUNG // MINIMAL & UNIQUE BACKEND PORTFOLIO LOGIC
+   Projects: ResQNet
+   GitHub: https://github.com/gurungsamriddhi
    =================================================================== */
 
 // Code Snippets for the Interactive Sandbox
 const SANDBOX_SNIPPETS = {
-  tracemind: {
-    title: 'TraceMind Distributed Trace & Span Collector',
-    code: `# TraceMind: Distributed Tracing & AI Agent Observability
-from fastapi import Request
-import time
-import uuid
-from typing import Dict, Any
+  resqnet: {
+    title: 'ResQNet: Real-time Dispatch via Laravel Reverb',
+    code: `// ResQNet: Real-time Dispatch via Laravel Reverb (WebSockets)
+namespace App\\Events;
 
-class TraceMindCollector:
-    """
-    Captures asynchronous microservice execution spans, 
-    tracks dependency bottlenecks, and logs AI agent tool calls.
-    """
-    def __init__(self, service_name: str):
-        self.service_name = service_name
-        self.spans: Dict[str, Any] = {}
+use Illuminate\\Broadcasting\\Channel;
+use Illuminate\\Broadcasting\\InteractsWithSockets;
+use Illuminate\\Contracts\\Broadcasting\\ShouldBroadcast;
 
-    async def trace_execution(self, trace_id: str, span_name: str):
-        span_id = str(uuid.uuid4())[:8]
-        start_time = time.perf_counter()
-        
-        # Simulated sub-service execution
-        try:
-            yield span_id
-        finally:
-            elapsed_ms = (time.perf_counter() - start_time) * 1000
-            self.spans[span_id] = {
-                "trace_id": trace_id,
-                "service": self.service_name,
-                "span": span_name,
-                "latency_ms": round(elapsed_ms, 2),
-                "status": "HEALTHY" if elapsed_ms < 250 else "DEGRADED"
-            }
+class EmergencyDispatched implements ShouldBroadcast
+{
+    use InteractsWithSockets;
 
-tracer = TraceMindCollector("order-service")`,
-    metrics: { fps: '214 ms P85', memory: '1,840 Traces/s', latency: '99.8% Uptime' }
+    public function __construct(
+        public readonly string $emergencyId,
+        public readonly array  $dispatchPayload,
+        public readonly string $zone
+    ) {}
+
+    public function broadcastOn(): Channel
+    {
+        // Broadcast to zone-specific channel for responders
+        return new Channel("emergency.zone.{$this->zone}");
+    }
+
+    public function broadcastWith(): array
+    {
+        return [
+            'id'       => $this->emergencyId,
+            'payload'  => $this->dispatchPayload,
+            'timestamp'=> now()->toISOString(),
+        ];
+    }
+}`,
+    metrics: { fps: '<80ms avg', memory: '98.2% rate', latency: '99.5%' }
   },
 
-  cvantage: {
-    title: 'CVantage-AI Semantic Candidate Match Engine',
-    code: `# CVantage-AI: Semantic Resume Parsing & Vector Matching
-import numpy as np
-from pydantic import BaseModel, Field
-from typing import List
+  resqnet_fcm: {
+    title: 'ResQNet: Firebase FCM Push Notifications',
+    code: `// ResQNet: Firebase Cloud Messaging Notification Service
+namespace App\\Services;
 
-class CandidateProfile(BaseModel):
-    candidate_id: str
-    skills: List[str]
-    experience_years: float
-    embedding_vector: List[float]
+use Kreait\\Firebase\\Messaging\\CloudMessage;
+use Kreait\\Firebase\\Messaging\\Notification;
 
-def compute_job_match(
-    candidate: CandidateProfile, 
-    job_embedding: np.ndarray,
-    required_skills: set
-) -> float:
-    """
-    Computes hybrid match score combining cosine similarity 
-    over dense vector embeddings and normalized skill-set overlap.
-    """
-    cand_vec = np.array(candidate.embedding_vector)
-    cosine_sim = np.dot(cand_vec, job_embedding) / (
-        np.linalg.norm(cand_vec) * np.linalg.norm(job_embedding)
-    )
-    
-    cand_skills = set(candidate.skills)
-    skill_overlap = len(cand_skills & required_skills) / max(len(required_skills), 1)
-    
-    # 70% semantic embedding + 30% strict skill taxonomy
-    total_score = (0.7 * cosine_sim) + (0.3 * skill_overlap)
-    return round(float(total_score) * 100, 1)  # e.g., 94.0% match`,
-    metrics: { fps: '94% Match Fit', memory: '1,847 Parsed', latency: '0.12s Analysis' }
+class FCMNotificationService
+{
+    public function __construct(
+        private readonly \\Kreait\\Firebase\\Contract\\Messaging $messaging
+    ) {}
+
+    /**
+     * Send emergency alert to all responders in a given zone.
+     */
+    public function notifyZoneResponders(
+        string $zone,
+        string $emergencyType,
+        array $location
+    ): void {
+        $message = CloudMessage::withTarget('topic', "zone-{$zone}")
+            ->withNotification(Notification::create(
+                "🚨 Emergency: {$emergencyType}",
+                "New emergency reported at ({$location['lat']}, {$location['lng']})"
+            ))
+            ->withData([
+                'type'      => $emergencyType,
+                'latitude'  => (string) $location['lat'],
+                'longitude' => (string) $location['lng'],
+                'priority'  => 'high',
+            ]);
+
+        $this->messaging->send($message);
+    }
+}`,
+    metrics: { fps: '< 2s delivery', memory: '98.2% success', latency: 'Multi-zone' }
   },
 
-  bulkapply: {
-    title: 'BulkApply Asynchronous Queue & Dispatch Engine',
-    code: `# BulkApply: Distributed Application Queue Dispatcher
-import asyncio
-from typing import Dict, Any
+  resqnet_auth: {
+    title: 'ResQNet: Role-Based Access Control',
+    code: `// ResQNet: Role-Based Access Control Middleware
+namespace App\\Http\\Middleware;
 
-class BulkApplyQueue:
-    """
-    Dispatches automated job applications across multiple 
-    target boards with concurrency limits and anti-blocking jitter.
-    """
-    def __init__(self, max_concurrency: int = 5):
-        self.queue = asyncio.Queue()
-        self.semaphore = asyncio.Semaphore(max_concurrency)
+use Closure;
+use Illuminate\\Http\\Request;
 
-    async def enqueue_application(self, job_meta: Dict[str, Any]):
-        await self.queue.put(job_meta)
+class RoleAuthorization
+{
+    /**
+     * Enforce role-based access for emergency operations.
+     * Roles: admin, dispatcher, responder, citizen
+     */
+    public function handle(Request $request, Closure $next, string ...$roles)
+    {
+        $user = $request->user();
 
-    async def worker(self, worker_id: int):
-        while not self.queue.empty():
-            job = await self.queue.get()
-            async with self.semaphore:
-                # Dispatch headless workflow with safe jitter
-                print(f"[Worker-{worker_id}] Submitting to {job['portal']} for {job['title']}...")
-                await asyncio.sleep(0.5)  # Anti-throttling rate limit
-                self.queue.task_done()
+        if (!$user || !in_array($user->role, $roles)) {
+            return response()->json([
+                'error'   => 'Unauthorized',
+                'message' => 'Insufficient permissions for this operation.',
+                'required_roles' => $roles,
+            ], 403);
+        }
 
-# Verified 78.5% application success rate across 3,400+ submissions`,
-    metrics: { fps: '78.5% Success', memory: '3,421 Processed', latency: '14 Channels' }
+        // Log access for audit trail
+        activity()
+            ->causedBy($user)
+            ->withProperties(['route' => $request->path()])
+            ->log("Authorized access as {$user->role}");
+
+        return $next($request);
+    }
+}
+
+// Usage in routes:
+// Route::middleware('role:admin,dispatcher')
+//     ->post('/emergencies/dispatch', [EmergencyController::class, 'dispatch']);`,
+    metrics: { fps: '4 roles defined', memory: 'Audit logged', latency: 'Middleware-based' }
   }
 };
 
 // Detailed Project Specs for Case Studies
 const PROJECT_DETAILS = {
-  tracemind: {
-    title: 'TraceMind // Distributed AI Observability',
-    subtitle: 'Microservice Tracing & AI Agent Evaluation Platform',
-    badge: 'Observability & Systems',
-    metric: '214ms Latency • 99.8% Uptime',
+  resqnet: {
+    title: 'ResQNet // Emergency Response Platform',
+    subtitle: 'Real-time Dispatch, FCM Notifications & Khalti Payments',
+    badge: 'Emergency Tech',
+    metric: '<80ms Latency • 99.5% Uptime',
     image: 'assets/images/project-tracemind.jpg',
-    stack: ['Python', 'FastAPI', 'OpenTelemetry', 'PostgreSQL', 'Docker', 'Asyncio'],
-    overview: 'TraceMind is a high-precision observability platform designed to monitor distributed backend microservices and track AI agent execution chains. It visualizes trace execution waterfalls, latency spikes, and error propagation in real-time.',
-    problem: 'Diagnosing cascading latency bottlenecks and unpredictable agent tool calls across distributed microservices requires hours of manual log parsing without unified trace context.',
-    solution: 'Built an asynchronous trace collector in FastAPI with OpenTelemetry standards, mapping parent-child execution spans into an interactive visual heatmap and timeline with sub-millisecond trace ingestion overhead.',
-    github: 'https://github.com/sushmashivamadegowda',
-    live: 'https://github.com/sushmashivamadegowda'
-  },
-  cvantage: {
-    title: 'CVantage-AI // Candidate Intelligence Engine',
-    subtitle: 'AI-Native Resume Parsing & Semantic Vector Matching',
-    badge: 'AI & Data Engineering',
-    metric: '94% Match Fit • 1,800+ Parsed',
-    image: 'assets/images/project-cvantage.jpg',
-    stack: ['Python', 'FastAPI', 'Pydantic v2', 'scikit-learn', 'Vector Embeddings', 'PostgreSQL'],
-    overview: 'CVantage-AI automates candidate screening through AI-native resume parsing, skill ontology extraction, and semantic vector match ranking against technical job requirements.',
-    problem: 'Keyword-based ATS parsers fail when resumes use diverse phrasing or synonyms, resulting in qualified engineers being filtered out erroneously.',
-    solution: 'Engineered a dual-stage scoring architecture combining semantic embeddings with strict domain taxonomies, delivering candidate intelligence profiles with multi-dimensional radar metrics.',
-    github: 'https://github.com/sushmashivamadegowda',
-    live: 'https://github.com/sushmashivamadegowda'
-  },
-  bulkapply: {
-    title: 'BulkApply // Automated Dispatch Engine',
-    subtitle: 'High-Throughput Job Application Automation & Queue Pipeline',
-    badge: 'Automation & Backend',
-    metric: '78.5% Success • 3.4k Dispatched',
-    image: 'assets/images/project-bulkapply.jpg',
-    stack: ['Python', 'FastAPI', 'Playwright', 'Asyncio Queues', 'PostgreSQL', 'Docker'],
-    overview: 'BulkApply is a distributed job application automation suite that coordinates concurrent headless browser pipelines across platforms like LinkedIn, Indeed, and Glassdoor with rate-limiting and session recovery.',
-    problem: 'Applying to hundreds of job listings manually is repetitive and tedious, while crude automation bots frequently get rate-limited or blocked.',
-    solution: 'Constructed an asynchronous worker queue utilizing adaptive delays, session persistence, and anti-detection mechanisms, achieving a verified 78.5% submission success rate across 3,400+ applications.',
-    github: 'https://github.com/sushmashivamadegowda',
-    live: 'https://github.com/sushmashivamadegowda'
-  },
-  legacy: {
-    title: 'Legacy // Architecture Modernization Engine',
-    subtitle: 'Schema Refactoring & Monolith-to-Microservices Migration',
-    badge: 'Database & Architecture',
-    metric: '94.1% Accuracy • 0.05% Drift',
-    image: 'assets/images/project-legacy.jpg',
-    stack: ['Python', 'Django', 'FastAPI', 'SQLAlchemy', 'PostgreSQL', 'MySQL'],
-    overview: 'Legacy provides automated schema refactoring workflows, migration flows, and backwards-compatible adapters to safely transition monolithic relational databases into decoupled microservice architectures.',
-    problem: 'Refactoring tightly-coupled monolithic databases frequently introduces schema drift, breaking legacy API consumers and triggering downtime during service decomposition.',
-    solution: 'Formulated a multi-stage migration pipeline with automated schema analysis, dual-write proxy adapters, and composite indexing, cutting migration risk with a negligible 0.05% drift rate.',
-    github: 'https://github.com/sushmashivamadegowda',
-    live: 'https://github.com/sushmashivamadegowda'
+    stack: ['Laravel', 'WebSockets', 'Firebase FCM', 'Khalti', 'Alpine.js', 'MySQL'],
+    overview: 'ResQNet is a real-time emergency response coordination platform built to connect citizens with first responders through live dispatch, push notifications, and integrated payments for emergency services.',
+    problem: 'Traditional emergency response systems lack real-time coordination between citizens, dispatchers, and responders — leading to delayed response times and poor resource allocation during critical situations.',
+    solution: 'Built a Laravel-based platform with WebSocket-powered live dispatch using Laravel Reverb, Firebase FCM for instant push notifications across zones, role-based access control, and Khalti payment integration for service fees.',
+    github: 'https://github.com/gurungsamriddhi',
+    live: 'https://github.com/gurungsamriddhi'
   }
 };
 
@@ -193,10 +168,10 @@ function initTypewriter() {
   if (!el) return;
 
   const phrases = [
-    'scale without friction.',
-    'respond in sub-milliseconds.',
-    'never fail under load.',
-    'power intelligent agents.'
+    'work in favour of humans.',
+    'respond in real-time.',
+    'save lives when it matters.',
+    'connect people to help.'
   ];
 
   let phraseIdx = 0;
@@ -237,7 +212,7 @@ function initTypewriter() {
    THEME SWITCHER
    ----------------------------------------------------------------- */
 function initTheme() {
-  const savedTheme = localStorage.getItem('sushma_theme') || 'cyber';
+  const savedTheme = localStorage.getItem('samriddhi_theme') || 'cyber';
   setTheme(savedTheme, false);
 
   const themeToggleBtn = document.getElementById('btn-theme-toggle');
@@ -250,7 +225,7 @@ function initTheme() {
 
 window.setTheme = function(theme, playSound = true) {
   document.documentElement.setAttribute('data-theme', theme);
-  localStorage.setItem('sushma_theme', theme);
+  localStorage.setItem('samriddhi_theme', theme);
 
   const themeLabel = document.getElementById('theme-label');
   if (themeLabel) {
@@ -358,18 +333,18 @@ function initSandbox() {
     if (valMem) valMem.textContent = item.metrics.memory;
     if (valLat) valLat.textContent = item.metrics.latency;
 
-    if (key === 'tracemind') {
+    if (key === 'resqnet') {
       if (meterFps) meterFps.style.width = '92%';
-      if (meterMem) meterMem.style.width = '88%';
-      if (meterLat) meterLat.style.width = '98%';
-    } else if (key === 'cvantage') {
-      if (meterFps) meterFps.style.width = '94%';
-      if (meterMem) meterMem.style.width = '92%';
-      if (meterLat) meterLat.style.width = '96%';
-    } else if (key === 'bulkapply') {
-      if (meterFps) meterFps.style.width = '80%';
-      if (meterMem) meterMem.style.width = '95%';
-      if (meterLat) meterLat.style.width = '90%';
+      if (meterMem) meterMem.style.width = '98%';
+      if (meterLat) meterLat.style.width = '99%';
+    } else if (key === 'resqnet_fcm') {
+      if (meterFps) meterFps.style.width = '88%';
+      if (meterMem) meterMem.style.width = '98%';
+      if (meterLat) meterLat.style.width = '95%';
+    } else if (key === 'resqnet_auth') {
+      if (meterFps) meterFps.style.width = '96%';
+      if (meterMem) meterMem.style.width = '94%';
+      if (meterLat) meterLat.style.width = '97%';
     }
   }
 
@@ -525,8 +500,8 @@ function initContactForm() {
     statusBox.className = 'transmission-status';
     statusBox.innerHTML = `
       <div style="display: flex; flex-direction: column; gap: 0.25rem;">
-        <div>&bull; Validating schema with Pydantic... &check;</div>
-        <div>&bull; Dispatching packet to hssushma2004@gmail.com...</div>
+        <div>&bull; Validating message... &check;</div>
+        <div>&bull; Dispatching to grgsamriddhi4@gmail.com...</div>
       </div>
     `;
 
@@ -536,21 +511,17 @@ function initContactForm() {
       statusBox.innerHTML = `
         <div style="font-weight: 700;">&check; MESSAGE SENT SUCCESSFULLY</div>
         <div style="font-size: 0.75rem; margin-top: 0.2rem; color: var(--text-secondary);">
-          Thank you, <b>${name}</b>. Sushma will get back to you at <b>${email}</b> shortly.
+          Thank you, <b>${name}</b>. Samriddhi will get back to you at <b>${email}</b> shortly.
         </div>
       `;
 
       form.reset();
       submitBtn.disabled = false;
       submitBtn.innerHTML = `
-        <span>Transmit Message to Sushma</span>
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <line x1="22" y1="2" x2="11" y2="13"></line>
-          <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
-        </svg>
+        <span>Send Message</span>
       `;
 
-      showToast('Message sent to Sushma!');
+      showToast('Message sent to Samriddhi!');
     }, 1000);
   });
 }
@@ -564,8 +535,8 @@ function initClipboardButtons() {
     btn.addEventListener('click', (e) => {
       e.preventDefault();
       if (window.soundEngine) window.soundEngine.playClick();
-      navigator.clipboard.writeText('hssushma2004@gmail.com').then(() => {
-        showToast('Email copied: hssushma2004@gmail.com');
+      navigator.clipboard.writeText('grgsamriddhi4@gmail.com').then(() => {
+        showToast('Email copied: grgsamriddhi4@gmail.com');
       });
     });
   });
@@ -575,15 +546,15 @@ function initClipboardButtons() {
     btn.addEventListener('click', (e) => {
       e.preventDefault();
       if (window.soundEngine) window.soundEngine.playClick();
-      navigator.clipboard.writeText('+918904261543').then(() => {
-        showToast('Phone copied: +91-8904261543');
+      navigator.clipboard.writeText('grgsamriddhi4@gmail.com').then(() => {
+        showToast('Email copied: grgsamriddhi4@gmail.com');
       });
     });
   });
 }
 
 /* -----------------------------------------------------------------
-   LIVE CLOCK IN STATUS PILL (BENGALURU LOCAL TIME)
+   LIVE CLOCK IN STATUS PILL (NEPAL LOCAL TIME)
    ----------------------------------------------------------------- */
 function initClock() {
   const clockElement = document.getElementById('live-clock');
@@ -591,8 +562,8 @@ function initClock() {
 
   function update() {
     const now = new Date();
-    const timeStr = now.toLocaleTimeString('en-IN', { 
-      timeZone: 'Asia/Kolkata', 
+    const timeStr = now.toLocaleTimeString('en-US', { 
+      timeZone: 'Asia/Kathmandu', 
       hour: '2-digit', 
       minute: '2-digit' 
     });

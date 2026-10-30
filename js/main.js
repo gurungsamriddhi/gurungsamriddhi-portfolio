@@ -137,7 +137,6 @@ function initVideoPlayers() {
       iframe.title = title;
       iframe.loading = 'lazy';
       iframe.allow = 'accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen';
-      iframe.allowFullscreen = true;
       iframe.referrerPolicy = 'strict-origin-when-cross-origin';
       player.replaceChildren(iframe);
     }

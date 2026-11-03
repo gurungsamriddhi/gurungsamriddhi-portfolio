@@ -88,6 +88,20 @@ body {
 
 img, svg, video, iframe { display: block; max-width: 100%; }
 
+/* Ambient background. z-index -1 sits above the page background (body's
+   background belongs to the root) and below all content, so nothing else
+   needs a z-index. Drawn by initAmbientCanvas() in main.js. */
+#canvas-ambient {
+  position: fixed;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.7;
+}
+
 a { color: inherit; }
 
 ::selection { background: var(--accent-pink); color: #fff; }
@@ -390,26 +404,21 @@ a { color: inherit; }
 .hero-social a:hover { color: var(--accent-pink-text); }
 .hero-social svg { width: 17px; height: 17px; }
 
-/* Portrait: initials monogram by default. See index.html for how to swap in a photo. */
+/* Portrait: circle with a thin pink-to-blue ring (a transparent border
+   showing the gradient background behind it). */
 .portrait {
-  position: relative;
-  aspect-ratio: 4 / 5;
-  border-radius: var(--radius-md);
+  width: min(100%, 240px);
+  aspect-ratio: 1 / 1;
+  margin-inline: auto;
+  border-radius: 50%;
+  border: 2px solid transparent;
   background:
-    radial-gradient(120% 80% at 0% 0%, var(--accent-pink-soft), transparent 60%),
-    radial-gradient(120% 80% at 100% 100%, var(--accent-blue-soft), transparent 60%),
-    var(--bg-elevated);
-  border: 1px solid var(--border);
+    linear-gradient(var(--bg-elevated), var(--bg-elevated)) padding-box,
+    var(--gradient-brand) border-box;
+  box-shadow: -6px 0 18px var(--accent-pink-soft), 6px 0 18px var(--accent-blue-soft);
   overflow: hidden;
   display: grid;
   place-items: center;
-}
-.portrait::after {
-  content: '';
-  position: absolute;
-  left: 0; right: 0; bottom: 0;
-  height: 3px;
-  background: var(--gradient-brand);
 }
 .portrait-initials {
   font-family: var(--font-mono);
@@ -418,7 +427,17 @@ a { color: inherit; }
   letter-spacing: -0.04em;
   color: var(--text);
 }
-.portrait img { width: 100%; height: 100%; object-fit: cover; }
+/* profile.jpeg has the figure low and to the right of a wide frame, so
+   cover alone leaves the face small and off-centre. This zooms in on it;
+   .portrait does the circular clipping. */
+.portrait img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 100% 50%;
+  transform: scale(2);
+  transform-origin: 83.4% 90%;
+}
 
 .hero-facts {
   margin-top: 1.25rem;

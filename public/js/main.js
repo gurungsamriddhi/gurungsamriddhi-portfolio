@@ -118,11 +118,11 @@ function initVideoPlayers() {
     if (src) {
       const video = document.createElement('video');
       video.controls = true;
-      video.preload = 'metadata';
+      video.preload = 'none';
       video.playsInline = true;
       video.setAttribute('playsinline', '');
       video.setAttribute('aria-label', title);
-      if (player.dataset.videoPoster) video.poster = player.dataset.videoPoster;
+      if (player.dataset.videoPoster) loadPosterWhenNear(player, video);
       const source = document.createElement('source');
       source.src = src;
       source.type = src.endsWith('.webm') ? 'video/webm' : 'video/mp4';
@@ -142,6 +142,20 @@ function initVideoPlayers() {
       player.replaceChildren(iframe);
     }
   });
+}
+
+function loadPosterWhenNear(player, video) {
+  const setPoster = () => { video.poster = player.dataset.videoPoster; };
+  if (!('IntersectionObserver' in window)) {
+    setPoster();
+    return;
+  }
+  const observer = new IntersectionObserver((entries) => {
+    if (!entries.some((entry) => entry.isIntersecting)) return;
+    setPoster();
+    observer.disconnect();
+  }, { rootMargin: '300px' });
+  observer.observe(player);
 }
 
 function toEmbedUrl(url) {

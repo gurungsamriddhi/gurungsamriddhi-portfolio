@@ -14,17 +14,19 @@ Use the same value in both files.
 
 1. Export the recording as MP4 (H.264 video, AAC audio), 1920x1080 or 1280x720.
    Keep it under ~50 MB if possible.
-2. Save it here as `assets/video/resqnet_demo.mp4`.
+2. Check every screen for passwords and personal details, then save it here as
+   `assets/video/resqnet_highlight.mp4`.
 3. Optional: export a still frame as `assets/video/resqnet_poster.jpg`.
 4. In both HTML files, set:
 
    ```html
-   data-video-src="assets/video/resqnet_demo.mp4"
+   data-video-src="assets/video/resqnet_highlight.mp4"
    data-video-poster="assets/video/resqnet_poster.jpg"
    ```
 
-The browser's native player is used, with controls, `preload="metadata"` and
-`playsinline`.
+The browser's native player is used, with controls, `preload="none"` and
+`playsinline`. Nothing is downloaded until someone presses play, and the poster
+loads when the player is about to scroll into view.
 
 ## Option B: YouTube or Vimeo
 

@@ -10,3 +10,11 @@ index = "index.html"
 
 [com.heroku.static-web-server.caddy_server_opts]
 clean_urls = true
+
+# Heroku builds stamp files with a 1980 modified date, so without these rules
+# browsers can keep old copies for years.
+[com.heroku.static-web-server.headers."*"]
+Cache-Control = "no-store"
+
+[com.heroku.static-web-server.headers."/assets/*"]
+Cache-Control = "public, max-age=86400"
